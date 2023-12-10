@@ -1,5 +1,19 @@
 include: package:very_good_analysis/analysis_options.yaml
 
+analyser:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "**/*.iconfig.dart"
+    - "**/*.inject.dart"
+    - "**/*.mocks.dart"
+    - "**/*.part.dart"
+    - "**/*.pump.dart"
+    - "**/*.router.dart"
+    - "**/*.routegen.dart"
+    - "**/*.routegen.dart"
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`

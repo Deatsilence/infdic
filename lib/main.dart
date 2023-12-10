@@ -1,7 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/login_view.dart';
+import 'package:infdic/product/init/product_localization.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(ProductLocalization(child: const MyApp()));
+}
 
 /// This is the main application widget.
 class MyApp extends StatelessWidget {
@@ -10,9 +17,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Material App',
-      home: LoginView(),
+      home: const LoginView(),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
     );
   }
 }
