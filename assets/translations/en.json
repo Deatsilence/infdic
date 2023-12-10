@@ -1,0 +1,15 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email",
+    "password": "Password",
+    "error": "Invalid email or password"
+  },
+  "general": {
+    "button": {
+      "login": "Login",
+      "signUp": "Sign Up",
+      "forgot": "Forgot Password?"
+    }
+  }
+}

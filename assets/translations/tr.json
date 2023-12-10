@@ -1,0 +1,15 @@
+{
+  "login": {
+    "title": "Giriş",
+    "email": "Email",
+    "password": "Şifre",
+    "error": "Email veya şifre hatalı"
+  },
+  "general": {
+    "button": {
+      "login": "Giriş Yap",
+      "signUp": "Kaydol",
+      "forgot": "Şifreni mi Unuttun ?"
+    }
+  }
+}

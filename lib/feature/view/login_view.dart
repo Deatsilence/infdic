@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/widget/login_custom_text_form_field.dart';
+import 'package:infdic/product/init/language/locale_keys.g.dart';
 
 /// This is login page
 final class LoginView extends StatefulWidget {
@@ -19,16 +21,16 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
         child: SizedBox(
           child: Form(
             key: loginFormKey,
-            child: const Column(
+            child: Column(
               children: [
-                Text('Login'),
+                const Text(LocaleKeys.login_title).tr(),
                 LoginCustomTextFormField(
-                  prefixIcon: Icon(Icons.email_outlined),
-                  labelText: 'Email',
+                  prefixIcon: const Icon(Icons.email_outlined),
+                  labelText: LocaleKeys.login_email.tr(),
                 ),
                 LoginCustomTextFormField(
-                  prefixIcon: Icon(Icons.password_outlined),
-                  labelText: 'Password',
+                  prefixIcon: const Icon(Icons.password_outlined),
+                  labelText: LocaleKeys.login_password.tr(),
                 ),
               ],
             ),
