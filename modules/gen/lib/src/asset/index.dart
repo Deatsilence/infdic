@@ -1,2 +1,2 @@
-export 'assets.gen.dart';
-export 'colors.gen.dart';
+export 'assets.gen.dart' show Assets;
+export 'colors.gen.dart' show ColorName;
