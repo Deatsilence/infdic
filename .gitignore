@@ -10,7 +10,8 @@
 .svn/
 migrate_working_dir/
 *.g.dart
-*.vscode/
+.vscode/
+*.env
 
 # IntelliJ related
 *.iml
