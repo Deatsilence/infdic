@@ -3,7 +3,11 @@
     "title": "Giriş",
     "email": "Email",
     "password": "Şifre",
-    "error": "Email veya şifre hatalı"
+    "error": "Email veya şifre hatalı",
+    "learn_words": "Kelimeleri Öğren",
+    "remember_me": "Beni Hatırla",
+    "or": "veya",
+    "google": "Google"
   },
   "general": {
     "button": {

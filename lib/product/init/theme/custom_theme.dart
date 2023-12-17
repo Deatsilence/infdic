@@ -4,4 +4,7 @@ import 'package:flutter/material.dart';
 abstract class CustomTheme {
   /// [themeData] is theme data for light theme
   ThemeData get themeData;
+
+  /// [elevatedButtonThemeData] is theme data for elevated button
+  ElevatedButtonThemeData get elevatedButtonThemeData;
 }

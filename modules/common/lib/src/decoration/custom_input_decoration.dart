@@ -11,8 +11,15 @@ final class CustomInputDecoration extends InputDecoration {
   /// named parameter `labelText` and passes it to the `super` constructor of
   /// the [InputDecoration]
   /// class.
-  CustomInputDecoration({super.labelText, super.prefixIcon, super.suffixIcon})
-      : super(
+  CustomInputDecoration({
+    required this.borderColor,
+    required this.enableBorderColor,
+    required this.deActiveBorderColor,
+    required this.errorBorderColor,
+    super.labelText,
+    super.prefixIcon,
+    super.suffixIcon,
+  }) : super(
           floatingLabelBehavior: FloatingLabelBehavior.never,
           constraints: const BoxConstraints(
             maxHeight: _maxHeightOfBoxConstraints,
@@ -20,27 +27,54 @@ final class CustomInputDecoration extends InputDecoration {
           ),
           contentPadding:
               PaddingManager.paddingManagerMorePaddingSymmetricHorizontal,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadiusManager.moreBorderRadius,
+            borderSide: BorderSide(
+              color: deActiveBorderColor,
+              width: _borderSideWidth,
+            ),
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadiusManager.moreBorderRadius,
-            borderSide: const BorderSide(
-              color: Colors.grey,
-              width: 2,
+            borderSide: BorderSide(
+              color: enableBorderColor,
+              width: _borderSideWidth,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadiusManager.moreBorderRadius,
+            borderSide: BorderSide(
+              color: borderColor,
+              width: _borderSideWidth,
+            ),
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadiusManager.moreBorderRadius,
+            borderSide: BorderSide(
+              color: deActiveBorderColor,
+              width: _borderSideWidth,
+            ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadiusManager.moreBorderRadius,
-            borderSide: const BorderSide(
-              color: Colors.red,
+            borderSide: BorderSide(
+              color: errorBorderColor,
               width: _borderSideWidth,
             ),
           ),
         );
+
+  /// [borderColor] is active border color
+  final Color borderColor;
+
+  /// [enableBorderColor] is enable border color
+  final Color enableBorderColor;
+
+  /// [deActiveBorderColor] is deactive border color
+  final Color deActiveBorderColor;
+
+  /// [errorBorderColor] is error border color
+  final Color errorBorderColor;
 
   static const double _maxHeightOfBoxConstraints = 70;
   static const double _borderSideWidth = 2;

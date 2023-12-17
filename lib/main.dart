@@ -5,6 +5,7 @@ import 'package:infdic/product/init/application_initialize.dart';
 import 'package:infdic/product/init/product_localization.dart';
 import 'package:infdic/product/init/theme/custom_dark_theme.dart';
 import 'package:infdic/product/init/theme/custom_light_theme.dart';
+import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
   await ApplicationInitialize().make();
@@ -19,15 +20,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      theme: CustomLightTheme().themeData,
-      darkTheme: CustomDarkTheme().themeData,
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      home: const LoginView(),
+    return Sizer(
+      builder: (context, orientation, deviceType) => MaterialApp(
+        title: 'Material App',
+        theme: CustomLightTheme().themeData,
+        darkTheme: CustomDarkTheme().themeData,
+        themeMode: ThemeMode.light,
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        home: const LoginView(),
+      ),
     );
   }
 }
