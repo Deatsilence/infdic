@@ -66,12 +66,15 @@ final class _LoginSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusManager.moreBorderRadius,
+    return SizedBox(
+      height: 40.h,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusManager.moreBorderRadius,
+        ),
+        color: Theme.of(context).colorScheme.outlineVariant,
+        child: Assets.icons.icLogin.svg(package: 'gen'),
       ),
-      color: Theme.of(context).colorScheme.outlineVariant,
-      child: Assets.icons.icLogin.svg(package: 'gen'),
     );
   }
 }

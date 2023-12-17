@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/widget/auth_custom_elevated_button.dart';
-import 'package:infdic/product/utility/extension/list_gutter_extension.dart';
+import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:sizer/sizer.dart';
@@ -25,38 +25,34 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding:
-              PaddingManager.paddingManagerNormalPaddingSymmetricHorizontal,
-          child: SizedBox(
-            child: Form(
-              key: loginFormKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(flex: 14, child: _LoginSvg()),
-                  const Expanded(flex: 2, child: _SignInTitle()),
-                  const _EmailAndPasswordTextFields(),
-                  ...[
-                    const Expanded(child: _RememberMeCheckBox()),
-                    const Expanded(
-                      flex: 2,
-                      child: _AuthLoginButtons(),
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding:
+                  PaddingManager.paddingManagerNormalPaddingSymmetricHorizontal,
+              sliver: SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    const _LoginSvg(),
+                    const _SignInTitle().onlyPadding(top: 1.h, bottom: 1.h),
+                    const _EmailAndPasswordTextFields(),
+                    const _RememberMeCheckBox(),
+                    const _AuthLoginButtons(),
+                    const _AuthDivider(),
+                    SizedBox(
+                      height: 8.h,
+                      width: double.infinity,
+                      child: AuthCustomElevatedButton(
+                        onPressed: () {},
+                        child:
+                            const Text(LocaleKeys.general_button_forgot).tr(),
+                      ),
                     ),
-                  ].seperate(space: 2.h),
-                  const Expanded(child: _AuthDivider()),
-                  SizedBox(
-                    height: 8.h,
-                    width: double.infinity,
-                    child: AuthCustomElevatedButton(
-                      onPressed: () {},
-                      child: const Text(LocaleKeys.general_button_forgot).tr(),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
