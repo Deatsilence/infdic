@@ -1,13 +1,17 @@
 {
   "login": {
-    "title": "Login",
+    "title": "Sign In",
     "email": "Email",
     "password": "Password",
-    "error": "Invalid email or password"
+    "error": "Invalid email or password",
+    "learn_words": "Learn Words",
+    "remember_me": "Remember me",
+    "or": "or",
+    "google": "Google"
   },
   "general": {
     "button": {
-      "login": "Login",
+      "login": "Sign In",
       "signUp": "Sign Up",
       "forgot": "Forgot Password?"
     }
