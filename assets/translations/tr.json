@@ -1,8 +1,10 @@
 {
-  "login": {
-    "title": "Giriş",
+  "auth": {
+    "login": "Giriş Yap",
+    "signUp": "Kayıt Ol",
     "email": "Email",
     "password": "Şifre",
+    "confirm_password": "Şifre Tekrarı",
     "error": "Email veya şifre hatalı",
     "learn_words": "Kelimeleri Öğren",
     "remember_me": "Beni Hatırla",
@@ -12,7 +14,7 @@
   "general": {
     "button": {
       "login": "Giriş Yap",
-      "signUp": "Kaydol",
+      "signUp": "Kayıt ol",
       "forgot": "Şifreni mi Unuttun ?"
     }
   }

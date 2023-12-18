@@ -28,8 +28,11 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_login.svg
   SvgGenImage get icLogin => const SvgGenImage('assets/icons/ic_login.svg');
 
+  /// File path: assets/icons/ic_signup.svg
+  SvgGenImage get icSignup => const SvgGenImage('assets/icons/ic_signup.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [icLogin];
+  List<SvgGenImage> get values => [icLogin, icSignup];
 }
 
 class $AssetsLottieGen {
