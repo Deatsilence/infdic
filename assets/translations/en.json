@@ -1,8 +1,10 @@
 {
-  "login": {
-    "title": "Sign In",
+  "auth": {
+    "login": "Sign In",
+    "signUp": "Sign Up",
     "email": "Email",
     "password": "Password",
+    "confirm_password": "Confirm Password",
     "error": "Invalid email or password",
     "learn_words": "Learn Words",
     "remember_me": "Remember me",

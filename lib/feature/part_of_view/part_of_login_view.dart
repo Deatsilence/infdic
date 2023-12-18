@@ -14,7 +14,7 @@ final class _RememberMeCheckBox extends StatelessWidget {
             onChanged: (value) {},
           ),
           Text(
-            LocaleKeys.login_remember_me,
+            LocaleKeys.auth_remember_me,
             style: Theme.of(context).textTheme.bodyMedium,
           ).tr(),
         ],
@@ -32,49 +32,15 @@ final class _EmailAndPasswordTextFields extends StatelessWidget {
       children: [
         CustomTextFormField(
           prefixIcon: const Icon(Icons.email_outlined),
-          labelText: LocaleKeys.login_email.tr(),
+          labelText: LocaleKeys.auth_email.tr(),
+          keyboardType: TextInputType.emailAddress,
         ),
         CustomTextFormField(
           prefixIcon: const Icon(Icons.password_outlined),
-          labelText: LocaleKeys.login_password.tr(),
+          labelText: LocaleKeys.auth_password.tr(),
+          keyboardType: TextInputType.visiblePassword,
         ),
       ],
-    );
-  }
-}
-
-final class _SignInTitle extends StatelessWidget {
-  const _SignInTitle();
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Text(
-        LocaleKeys.login_title,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(fontWeight: FontWeight.bold),
-      ).tr(),
-    );
-  }
-}
-
-final class _LoginSvg extends StatelessWidget {
-  const _LoginSvg();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40.h,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusManager.moreBorderRadius,
-        ),
-        color: Theme.of(context).colorScheme.outlineVariant,
-        child: Assets.icons.icLogin.svg(package: 'gen'),
-      ),
     );
   }
 }
@@ -92,7 +58,7 @@ final class _AuthDivider extends StatelessWidget {
         Align(
           alignment: Alignment.topCenter,
           child: Text(
-            LocaleKeys.login_or,
+            LocaleKeys.auth_or,
             style: Theme.of(context).textTheme.bodyMedium,
           ).tr(),
         ),
@@ -117,7 +83,7 @@ final class _AuthLoginButtons extends StatelessWidget {
           width: 45.w,
           child: AuthCustomElevatedButton(
             onPressed: () {},
-            child: const Text(LocaleKeys.login_google).tr(),
+            child: const Text(LocaleKeys.auth_google).tr(),
           ),
         ),
         SizedBox(
@@ -125,7 +91,7 @@ final class _AuthLoginButtons extends StatelessWidget {
           width: 45.w,
           child: AuthCustomElevatedButton(
             onPressed: () {},
-            child: const Text(LocaleKeys.login_title).tr(),
+            child: const Text(LocaleKeys.auth_login).tr(),
           ),
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:infdic/feature/view/login_view.dart';
+import 'package:infdic/feature/view/signup_view.dart';
 import 'package:infdic/product/init/application_initialize.dart';
 import 'package:infdic/product/init/product_localization.dart';
 import 'package:infdic/product/init/theme/custom_dark_theme.dart';
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        home: const LoginView(),
+        home: const SignUpView(),
       ),
     );
   }
