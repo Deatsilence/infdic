@@ -24,29 +24,32 @@ final class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> with LoginViewMixin {
   @override
   Widget build(BuildContext context) {
-    return BaseAuthView(
-      sliver: SliverList(
-        delegate: SliverChildListDelegate(
-          [
-            AuthSvg(
-              height: 40.h,
-              child: Assets.icons.icLogin.svg(package: 'gen'),
-            ),
-            const AuthTitle(title: LocaleKeys.auth_login)
-                .onlyPadding(top: 1.h, bottom: 1.h),
-            const _EmailAndPasswordTextFields(),
-            const _RememberMeCheckBox(),
-            const _AuthLoginButtons(),
-            const _AuthDivider(),
-            SizedBox(
-              height: 8.h,
-              width: double.infinity,
-              child: AuthCustomElevatedButton(
-                onPressed: () {},
-                child: const Text(LocaleKeys.general_button_forgot).tr(),
+    return Form(
+      key: loginFormKey,
+      child: BaseAuthView(
+        sliver: SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              AuthSvg(
+                height: 40.h,
+                child: Assets.icons.icLogin.svg(package: 'gen'),
               ),
-            ),
-          ],
+              const AuthTitle(title: LocaleKeys.auth_login)
+                  .onlyPadding(top: 1.h, bottom: 1.h),
+              const _EmailAndPasswordTextFields(),
+              const _RememberMeCheckBox(),
+              const _AuthLoginButtons(),
+              const _AuthDivider(),
+              SizedBox(
+                height: 8.h,
+                width: double.infinity,
+                child: AuthCustomElevatedButton(
+                  onPressed: () {},
+                  child: const Text(LocaleKeys.general_button_forgot).tr(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
