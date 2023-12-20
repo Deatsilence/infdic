@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "572750917894",
+    "project_id": "myinfdic",
+    "storage_bucket": "myinfdic.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572750917894:android:aa06af425e6402dca12e87",
+        "android_client_info": {
+          "package_name": "com.deatsilence.informationdictionary.infdic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmvYe-piGMkYHsOmuIwpZlUzv6FheSEt8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

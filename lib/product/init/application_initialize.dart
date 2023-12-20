@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_logger/easy_logger.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:infdic/firebase_options.dart';
 import 'package:infdic/product/init/config/app_environment.dart';
 import 'package:logger/logger.dart';
 
@@ -22,6 +24,9 @@ final class ApplicationInitialize {
 
   /// [_initialize] is a method that is used to initialize
   Future<void> _initialize() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     await EasyLocalization.ensureInitialized();
     EasyLocalization.logger.enableLevels = [LevelMessages.error];
 
