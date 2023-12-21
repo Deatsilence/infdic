@@ -21,6 +21,8 @@ dependencies:
   # Firebase
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
+  firebase_storage: ^11.5.6
+  cloud_firestore: ^4.13.6
 
   # Config
   easy_localization: ^3.0.3
