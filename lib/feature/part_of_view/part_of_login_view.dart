@@ -1,4 +1,4 @@
-part of '../view/login_view.dart';
+part of '../view/auth/login_view.dart';
 
 final class _RememberMeCheckBox extends StatelessWidget {
   const _RememberMeCheckBox();

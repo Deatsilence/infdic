@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infdic/feature/view/login_view.dart';
+import 'package:infdic/feature/view/auth/login_view.dart';
 
 /// This is logics of login view
 /// [loginFormKey] is key for login form

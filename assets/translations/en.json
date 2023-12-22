@@ -9,7 +9,9 @@
     "learn_words": "Learn Words",
     "remember_me": "Remember me",
     "or": "or",
-    "google": "Google"
+    "google": "Google",
+    "please_enter_a_valid_email": "Please enter a valid email",
+    "please_enter_a_valid_password": "Please enter a valid password"
   },
   "general": {
     "button": {

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:infdic/feature/view/signup_view.dart';
+import 'package:infdic/feature/view/auth/login_view.dart';
+import 'package:infdic/feature/view/auth/signup_view.dart';
 import 'package:infdic/product/init/application_initialize.dart';
 import 'package:infdic/product/init/product_localization.dart';
 import 'package:infdic/product/init/theme/custom_dark_theme.dart';

@@ -9,7 +9,9 @@
     "learn_words": "Kelimeleri Öğren",
     "remember_me": "Beni Hatırla",
     "or": "veya",
-    "google": "Google"
+    "google": "Google",
+    "please_enter_a_valid_email": "Lütfen geçerli bir email giriniz",
+    "please_enter_a_valid_password": "Lütfen geçerli bir şifre giriniz"
   },
   "general": {
     "button": {

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
-import 'package:infdic/feature/view/base_auth_view.dart';
+import 'package:infdic/feature/view/auth/base_auth_view.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:sizer/sizer.dart';
 
-part '../part_of_view/part_of_login_view.dart';
+part '../../part_of_view/part_of_login_view.dart';
 
 /// This is login page
 final class LoginView extends StatefulWidget {
