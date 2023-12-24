@@ -9,7 +9,11 @@
     "learn_words": "Learn Words",
     "remember_me": "Remember me",
     "or": "or",
-    "google": "Google"
+    "google": "Google",
+    "please_enter_a_valid_email": "Please enter a valid email",
+    "please_enter_a_valid_password": "Please enter a valid password",
+    "passwords_have_to_match": "Passwords have to match",
+    "password_repeat_have_not_to_be_empty": "Password repeat have not to be empty"
   },
   "general": {
     "button": {

@@ -1,4 +1,4 @@
-part of '../view/login_view.dart';
+part of '../view/auth/login_view.dart';
 
 final class _RememberMeCheckBox extends StatelessWidget {
   const _RememberMeCheckBox();
@@ -19,28 +19,6 @@ final class _RememberMeCheckBox extends StatelessWidget {
           ).tr(),
         ],
       ),
-    );
-  }
-}
-
-final class _EmailAndPasswordTextFields extends StatelessWidget {
-  const _EmailAndPasswordTextFields();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextFormField(
-          prefixIcon: const Icon(Icons.email_outlined),
-          labelText: LocaleKeys.auth_email.tr(),
-          keyboardType: TextInputType.emailAddress,
-        ),
-        CustomTextFormField(
-          prefixIcon: const Icon(Icons.password_outlined),
-          labelText: LocaleKeys.auth_password.tr(),
-          keyboardType: TextInputType.visiblePassword,
-        ),
-      ],
     );
   }
 }
@@ -70,31 +48,16 @@ final class _AuthDivider extends StatelessWidget {
   }
 }
 
-final class _AuthLoginButtons extends StatelessWidget {
-  const _AuthLoginButtons();
+final class _AuthRowButtons extends StatelessWidget {
+  const _AuthRowButtons({required this.buttons});
+
+  final List<Widget> buttons;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          height: 8.h,
-          width: 45.w,
-          child: AuthCustomElevatedButton(
-            onPressed: () {},
-            child: const Text(LocaleKeys.auth_google).tr(),
-          ),
-        ),
-        SizedBox(
-          height: 8.h,
-          width: 45.w,
-          child: AuthCustomElevatedButton(
-            onPressed: () {},
-            child: const Text(LocaleKeys.auth_login).tr(),
-          ),
-        ),
-      ],
+      children: buttons,
     );
   }
 }
