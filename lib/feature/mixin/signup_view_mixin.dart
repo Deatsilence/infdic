@@ -33,4 +33,13 @@ mixin SignUpViewMixin on State<SignUpView> {
           ? null
           : LocaleKeys.auth_passwords_have_to_match.tr()
       : LocaleKeys.auth_password_repeat_have_not_to_be_empty.tr();
+
+  /// [onSignUpPressed] is function for signup button
+  void onSignUpPressed() {
+    if (signUpFormKey.currentState != null &&
+        signUpFormKey.currentState!.validate()) {
+      signUpFormKey.currentState!.save();
+      debugPrint('success');
+    }
+  }
 }

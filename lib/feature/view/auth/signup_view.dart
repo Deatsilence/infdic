@@ -27,54 +27,44 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
   Widget build(BuildContext context) {
     return Form(
       key: signUpFormKey,
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: BaseAuthView(
-          onPageBuilder: (context, value) => SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                AuthSvg(
-                  height: 30.h,
-                  child: Assets.icons.icSignup.svg(package: 'gen'),
-                ),
-                const AuthTitle(title: LocaleKeys.auth_signUp)
-                    .onlyPadding(top: 1.h, bottom: 1.h),
-                CustomTextFormField(
-                  controller: emailController,
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  labelText: LocaleKeys.auth_email.tr(),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: Validation().emailValidator,
-                ),
-                CustomTextFormField(
-                  controller: passwordController,
-                  prefixIcon: const Icon(Icons.lock_outline),
-                  labelText: LocaleKeys.auth_password.tr(),
-                  keyboardType: TextInputType.visiblePassword,
-                  validator: Validation().passwordValidator,
-                ),
-                CustomTextFormField(
-                  controller: confirmPasswordController,
-                  prefixIcon: const Icon(Icons.repeat),
-                  labelText: LocaleKeys.auth_confirm_password.tr(),
-                  keyboardType: TextInputType.visiblePassword,
-                  validator: confirmPasswordValidator,
-                ),
-                SizedBox(
-                  height: 7.h,
-                  child: AuthCustomElevatedButton(
-                    onPressed: () {
-                      if (signUpFormKey.currentState!.validate()) {
-                        signUpFormKey.currentState!.save();
-                        debugPrint('success');
-                      }
-                    },
-                    child: const Text(LocaleKeys.auth_signUp).tr(),
-                  ),
-                ),
-                AuthIsInfoValid(controller: passwordController),
-              ],
-            ),
+      child: BaseAuthView(
+        onPageBuilder: (context, value) => SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              AuthSvg(
+                height: 30.h,
+                child: Assets.icons.icSignup.svg(package: 'gen'),
+              ),
+              const AuthTitle(title: LocaleKeys.auth_signUp)
+                  .onlyPadding(top: 1.h, bottom: 1.h),
+              CustomTextFormField(
+                controller: emailController,
+                prefixIcon: const Icon(Icons.email_outlined),
+                labelText: LocaleKeys.auth_email.tr(),
+                keyboardType: TextInputType.emailAddress,
+                validator: Validation().emailValidator,
+              ),
+              CustomTextFormField(
+                controller: passwordController,
+                prefixIcon: const Icon(Icons.lock_outline),
+                labelText: LocaleKeys.auth_password.tr(),
+                keyboardType: TextInputType.visiblePassword,
+                validator: Validation().passwordValidator,
+              ),
+              CustomTextFormField(
+                controller: confirmPasswordController,
+                prefixIcon: const Icon(Icons.repeat),
+                labelText: LocaleKeys.auth_confirm_password.tr(),
+                keyboardType: TextInputType.visiblePassword,
+                validator: confirmPasswordValidator,
+              ),
+              AuthCustomElevatedButton(
+                onPressed: onSignUpPressed,
+                height: 8.h,
+                child: const Text(LocaleKeys.auth_signUp).tr(),
+              ),
+              AuthIsInfoValid(controller: passwordController),
+            ],
           ),
         ),
       ),

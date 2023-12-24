@@ -42,17 +42,20 @@ class _BaseAuthViewState extends State<BaseAuthView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            if (context.routeData.name == SignUpRoute.name)
-              const SliverAppBar(),
-            SliverPadding(
-              padding:
-                  PaddingManager.paddingManagerNormalPaddingSymmetricHorizontal,
-              sliver: widget.onPageBuilder(context, widget.viewModel),
-            ),
-          ],
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              if (context.routeData.name == SignUpRoute.name)
+                const SliverAppBar(),
+              SliverPadding(
+                padding: PaddingManager
+                    .paddingManagerNormalPaddingSymmetricHorizontal,
+                sliver: widget.onPageBuilder(context, widget.viewModel),
+              ),
+            ],
+          ),
         ),
       ),
     );

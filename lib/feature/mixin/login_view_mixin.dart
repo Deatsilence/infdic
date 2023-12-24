@@ -19,4 +19,12 @@ mixin LoginViewMixin on State<LoginView> {
     passwordController.dispose();
     super.dispose();
   }
+
+  /// [onLoginPressed] is function for login button
+  void onLoginPressed() {
+    if (loginFormKey.currentState != null &&
+        loginFormKey.currentState!.validate()) {
+      loginFormKey.currentState!.save();
+    }
+  }
 }

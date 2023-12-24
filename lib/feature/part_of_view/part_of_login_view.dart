@@ -23,28 +23,6 @@ final class _RememberMeCheckBox extends StatelessWidget {
   }
 }
 
-final class _EmailAndPasswordTextFields extends StatelessWidget {
-  const _EmailAndPasswordTextFields();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomTextFormField(
-          prefixIcon: const Icon(Icons.email_outlined),
-          labelText: LocaleKeys.auth_email.tr(),
-          keyboardType: TextInputType.emailAddress,
-        ),
-        CustomTextFormField(
-          prefixIcon: const Icon(Icons.password_outlined),
-          labelText: LocaleKeys.auth_password.tr(),
-          keyboardType: TextInputType.visiblePassword,
-        ),
-      ],
-    );
-  }
-}
-
 final class _AuthDivider extends StatelessWidget {
   const _AuthDivider();
 

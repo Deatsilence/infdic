@@ -7,6 +7,7 @@ import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
+import 'package:infdic/product/validation/validation.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
@@ -39,50 +40,56 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
               ),
               const AuthTitle(title: LocaleKeys.auth_login)
                   .onlyPadding(top: 1.h, bottom: 1.h),
-              const _EmailAndPasswordTextFields(),
+              CustomTextFormField(
+                prefixIcon: const Icon(Icons.email_outlined),
+                labelText: LocaleKeys.auth_email.tr(),
+                keyboardType: TextInputType.emailAddress,
+                validator: Validation().emailValidator,
+              ),
+              CustomTextFormField(
+                prefixIcon: const Icon(Icons.password_outlined),
+                labelText: LocaleKeys.auth_password.tr(),
+                keyboardType: TextInputType.visiblePassword,
+                validator: Validation().passwordValidator,
+              ),
               const _RememberMeCheckBox(),
               _AuthRowButtons(
                 buttons: [
-                  SizedBox(
+                  AuthCustomElevatedButton(
+                    onPressed: () {},
                     height: 8.h,
                     width: 45.w,
-                    child: AuthCustomElevatedButton(
-                      onPressed: () {},
-                      child: const Text(LocaleKeys.auth_google).tr(),
-                    ),
+                    child: const Text(LocaleKeys.auth_google).tr(),
                   ),
-                  SizedBox(
+                  AuthCustomElevatedButton(
+                    onPressed: onLoginPressed,
                     height: 8.h,
                     width: 45.w,
-                    child: AuthCustomElevatedButton(
-                      onPressed: () {},
-                      child: const Text(LocaleKeys.auth_login).tr(),
-                    ),
+                    child: const Text(LocaleKeys.auth_login).tr(),
                   ),
                 ],
               ),
               const _AuthDivider(),
               _AuthRowButtons(
                 buttons: [
-                  SizedBox(
+                  AuthCustomElevatedButton(
+                    onPressed: () {},
                     height: 8.h,
                     width: 45.w,
-                    child: AuthCustomElevatedButton(
-                      onPressed: () {},
-                      child: const Text(LocaleKeys.general_button_forgot).tr(),
-                    ),
+                    child: const Text(
+                      LocaleKeys.general_button_forgot,
+                      textAlign: TextAlign.center,
+                    ).tr(),
                   ),
-                  SizedBox(
+                  AuthCustomElevatedButton(
+                    onPressed: () async {
+                      final response =
+                          await context.router.push<bool?>(const SignUpRoute());
+                      debugPrint(response.toString());
+                    },
                     height: 8.h,
                     width: 45.w,
-                    child: AuthCustomElevatedButton(
-                      onPressed: () async {
-                        final response = await context.router
-                            .push<bool?>(const SignUpRoute());
-                        debugPrint(response.toString());
-                      },
-                      child: const Text(LocaleKeys.auth_signUp).tr(),
-                    ),
+                    child: const Text(LocaleKeys.auth_signUp).tr(),
                   ),
                 ],
               ),
