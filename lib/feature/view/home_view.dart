@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:infdic/feature/view/auth/login_view.dart';
 
-/// This is initialize page after login
+/// [HomeView] is the view of home page
+@RoutePage()
 final class HomeView extends StatefulWidget {
   /// Constructor
   const HomeView({super.key});
@@ -12,6 +15,6 @@ final class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const LoginView();
   }
 }

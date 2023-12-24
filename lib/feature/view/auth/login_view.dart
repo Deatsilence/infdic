@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
+import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:infdic/feature/view/widget/index.dart';
@@ -12,7 +14,8 @@ import 'package:sizer/sizer.dart';
 
 part '../../part_of_view/part_of_login_view.dart';
 
-/// This is login page
+/// [LoginView] is the view of login page
+@RoutePage()
 final class LoginView extends StatefulWidget {
   /// Constructor
   const LoginView({super.key});
@@ -27,7 +30,7 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
     return Form(
       key: loginFormKey,
       child: BaseAuthView(
-        sliver: SliverList(
+        onPageBuilder: (context, value) => SliverList(
           delegate: SliverChildListDelegate(
             [
               AuthSvg(
@@ -38,15 +41,50 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
                   .onlyPadding(top: 1.h, bottom: 1.h),
               const _EmailAndPasswordTextFields(),
               const _RememberMeCheckBox(),
-              const _AuthLoginButtons(),
+              _AuthRowButtons(
+                buttons: [
+                  SizedBox(
+                    height: 8.h,
+                    width: 45.w,
+                    child: AuthCustomElevatedButton(
+                      onPressed: () {},
+                      child: const Text(LocaleKeys.auth_google).tr(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                    width: 45.w,
+                    child: AuthCustomElevatedButton(
+                      onPressed: () {},
+                      child: const Text(LocaleKeys.auth_login).tr(),
+                    ),
+                  ),
+                ],
+              ),
               const _AuthDivider(),
-              SizedBox(
-                height: 8.h,
-                width: double.infinity,
-                child: AuthCustomElevatedButton(
-                  onPressed: () {},
-                  child: const Text(LocaleKeys.general_button_forgot).tr(),
-                ),
+              _AuthRowButtons(
+                buttons: [
+                  SizedBox(
+                    height: 8.h,
+                    width: 45.w,
+                    child: AuthCustomElevatedButton(
+                      onPressed: () {},
+                      child: const Text(LocaleKeys.general_button_forgot).tr(),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 8.h,
+                    width: 45.w,
+                    child: AuthCustomElevatedButton(
+                      onPressed: () async {
+                        final response = await context.router
+                            .push<bool?>(const SignUpRoute());
+                        debugPrint(response.toString());
+                      },
+                      child: const Text(LocaleKeys.auth_signUp).tr(),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

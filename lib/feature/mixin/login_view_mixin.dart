@@ -6,4 +6,17 @@ import 'package:infdic/feature/view/auth/login_view.dart';
 mixin LoginViewMixin on State<LoginView> {
   /// This is key for login form
   final loginFormKey = GlobalKey<FormState>();
+
+  /// [emailController] is controller for email field
+  final TextEditingController emailController = TextEditingController();
+
+  /// [passwordController] is controller for email field
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 }

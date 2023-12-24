@@ -35,6 +35,9 @@ dependencies:
   gap: ^3.0.1
   flutter_pw_validator: ^1.6.0
 
+  # Navigation
+  auto_route: ^7.8.4
+
   # Modules
   gen:
     path: modules/gen
@@ -47,6 +50,7 @@ dev_dependencies:
     sdk: flutter
   very_good_analysis: ^5.1.0
   build_runner: ^2.4.7
+  auto_route_generator: ^7.3.2
 
 flutter:
   uses-material-design: true

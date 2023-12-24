@@ -1,4 +1,4 @@
-import 'package:common/common.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
@@ -7,13 +7,14 @@ import 'package:infdic/feature/view/auth/base_auth_view.dart';
 import 'package:infdic/feature/view/widget/auth_is_info_valid.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
+import 'package:infdic/product/validation/validation.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:sizer/sizer.dart';
 
 /// [SignUpView] is the view of sign up page
-class SignUpView extends StatefulWidget {
+@RoutePage<bool?>()
+final class SignUpView extends StatefulWidget {
   /// Constructor
   const SignUpView({super.key});
 
@@ -29,7 +30,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
       child: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: BaseAuthView(
-          sliver: SliverList(
+          onPageBuilder: (context, value) => SliverList(
             delegate: SliverChildListDelegate(
               [
                 AuthSvg(
@@ -43,20 +44,21 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
                   prefixIcon: const Icon(Icons.email_outlined),
                   labelText: LocaleKeys.auth_email.tr(),
                   keyboardType: TextInputType.emailAddress,
-                  validator: emailValidator,
+                  validator: Validation().emailValidator,
                 ),
                 CustomTextFormField(
                   controller: passwordController,
                   prefixIcon: const Icon(Icons.lock_outline),
                   labelText: LocaleKeys.auth_password.tr(),
                   keyboardType: TextInputType.visiblePassword,
-                  validator: passwordValidator,
+                  validator: Validation().passwordValidator,
                 ),
                 CustomTextFormField(
                   controller: confirmPasswordController,
                   prefixIcon: const Icon(Icons.repeat),
                   labelText: LocaleKeys.auth_confirm_password.tr(),
                   keyboardType: TextInputType.visiblePassword,
+                  validator: confirmPasswordValidator,
                 ),
                 SizedBox(
                   height: 7.h,

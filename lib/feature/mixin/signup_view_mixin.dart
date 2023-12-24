@@ -1,4 +1,3 @@
-import 'package:common/common.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/signup_view.dart';
@@ -20,16 +19,18 @@ mixin SignUpViewMixin on State<SignUpView> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  // TODO: validators will be moved to another file
-  /// [emailValidator] is validator for email field
-  String? emailValidator(String? value) =>
-      value!.hasValue && InfDicRegExp().emailRegexp.hasMatch(value)
-          ? null
-          : LocaleKeys.auth_please_enter_a_valid_email.tr();
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
-  /// [passwordValidator] is validator for password field
-  String? passwordValidator(String? value) =>
-      value.hasValue && InfDicRegExp().passwordRegexp.hasMatch(value!)
+  /// [confirmPasswordValidator] is validator for password field
+  String? confirmPasswordValidator(String? value) => value.hasValue
+      ? value == passwordController.text
           ? null
-          : LocaleKeys.auth_please_enter_a_valid_password.tr();
+          : LocaleKeys.auth_passwords_have_to_match.tr()
+      : LocaleKeys.auth_password_repeat_have_not_to_be_empty.tr();
 }

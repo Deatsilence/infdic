@@ -24,13 +24,12 @@ final class ApplicationInitialize {
 
   /// [_initialize] is a method that is used to initialize
   Future<void> _initialize() async {
+    /// Firebase initialization will come here.
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     await EasyLocalization.ensureInitialized();
     EasyLocalization.logger.enableLevels = [LevelMessages.error];
-
-    /// Firebase initialization will come here.
 
     /// The application's a few settings are set here.
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
