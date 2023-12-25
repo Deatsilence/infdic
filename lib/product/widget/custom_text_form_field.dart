@@ -20,6 +20,10 @@ final class CustomTextFormField extends StatefulWidget {
     this.activeBorderColor,
     this.deActiveBorderColor,
     this.errorBorderColor,
+    this.textInputAction,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.autocorrect = false,
     this.obscureText = false,
     this.obscuringCharacter = '•',
   });
@@ -27,17 +31,21 @@ final class CustomTextFormField extends StatefulWidget {
   final String? labelText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
+  final void Function(String)? onFieldSubmitted;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final Color? borderColor;
   final Color? activeBorderColor;
   final Color? deActiveBorderColor;
   final Color? errorBorderColor;
+  final bool autocorrect;
   final bool obscureText;
   final String obscuringCharacter;
+  final FocusNode? focusNode;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -67,6 +75,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       keyboardType: widget.keyboardType,
       obscureText: widget.obscureText,
       obscuringCharacter: widget.obscuringCharacter,
+      autocorrect: widget.autocorrect,
+      textInputAction: widget.textInputAction,
+      focusNode: widget.focusNode,
+      onFieldSubmitted: widget.onFieldSubmitted,
     );
   }
 }
