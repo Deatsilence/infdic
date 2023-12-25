@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-/// [AuthCustomElevatedButton] is custom elevated button
-final class AuthCustomElevatedButton extends StatelessWidget {
+/// [AuthCustomOutlinedButton] is custom elevated button
+final class AuthCustomOutlinedButton extends StatelessWidget {
   /// Constructor
-  const AuthCustomElevatedButton({
+  const AuthCustomOutlinedButton({
     required this.onPressed,
     required this.child,
     super.key,
@@ -25,7 +25,7 @@ final class AuthCustomElevatedButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         // TODO: This will edit later for in INFD-6
-        style: Theme.of(context).elevatedButtonTheme.style,
+        style: Theme.of(context).outlinedButtonTheme.style,
         child: child,
       ),
     );

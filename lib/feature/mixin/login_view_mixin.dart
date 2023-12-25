@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/login_view.dart';
+import 'package:infdic/product/navigation/app_router.dart';
 
 /// This is logics of login view
 /// [loginFormKey] is key for login form
@@ -26,5 +28,10 @@ mixin LoginViewMixin on State<LoginView> {
         loginFormKey.currentState!.validate()) {
       loginFormKey.currentState!.save();
     }
+  }
+
+  /// [onSignUpPressed] is function for sign in button
+  Future<void> onSignUpPressed() async {
+    await context.router.push<bool?>(const SignUpRoute());
   }
 }

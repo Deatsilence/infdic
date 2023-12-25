@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
-import 'package:infdic/product/navigation/app_router.dart';
+import 'package:infdic/feature/view/widget/auth_custom_outlined_button.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/validation/validation.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
@@ -44,12 +44,14 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
                 prefixIcon: const Icon(Icons.email_outlined),
                 labelText: LocaleKeys.auth_email.tr(),
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 validator: Validation().emailValidator,
               ),
               CustomTextFormField(
                 prefixIcon: const Icon(Icons.password_outlined),
                 labelText: LocaleKeys.auth_password.tr(),
                 keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
                 validator: Validation().passwordValidator,
               ),
               const _RememberMeCheckBox(),
@@ -72,7 +74,7 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
               const _AuthDivider(),
               _AuthRowButtons(
                 buttons: [
-                  AuthCustomElevatedButton(
+                  AuthCustomOutlinedButton(
                     onPressed: () {},
                     height: 8.h,
                     width: 45.w,
@@ -81,12 +83,8 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
                       textAlign: TextAlign.center,
                     ).tr(),
                   ),
-                  AuthCustomElevatedButton(
-                    onPressed: () async {
-                      final response =
-                          await context.router.push<bool?>(const SignUpRoute());
-                      debugPrint(response.toString());
-                    },
+                  AuthCustomOutlinedButton(
+                    onPressed: onSignUpPressed,
                     height: 8.h,
                     width: 45.w,
                     child: const Text(LocaleKeys.auth_signUp).tr(),

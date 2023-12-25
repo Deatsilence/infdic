@@ -39,7 +39,6 @@ mixin SignUpViewMixin on State<SignUpView> {
     if (signUpFormKey.currentState != null &&
         signUpFormKey.currentState!.validate()) {
       signUpFormKey.currentState!.save();
-      debugPrint('success');
     }
   }
 }

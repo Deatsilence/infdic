@@ -42,6 +42,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
                 prefixIcon: const Icon(Icons.email_outlined),
                 labelText: LocaleKeys.auth_email.tr(),
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 validator: Validation().emailValidator,
               ),
               CustomTextFormField(
@@ -49,6 +50,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
                 prefixIcon: const Icon(Icons.lock_outline),
                 labelText: LocaleKeys.auth_password.tr(),
                 keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.next,
                 validator: Validation().passwordValidator,
               ),
               CustomTextFormField(
@@ -56,6 +58,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
                 prefixIcon: const Icon(Icons.repeat),
                 labelText: LocaleKeys.auth_confirm_password.tr(),
                 keyboardType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
                 validator: confirmPasswordValidator,
               ),
               AuthCustomElevatedButton(

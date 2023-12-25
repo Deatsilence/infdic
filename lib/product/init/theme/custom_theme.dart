@@ -7,4 +7,7 @@ abstract class CustomTheme {
 
   /// [elevatedButtonThemeData] is theme data for elevated button
   ElevatedButtonThemeData get elevatedButtonThemeData;
+
+  /// [outlinedButtonThemeData] is theme data for outlined button
+  OutlinedButtonThemeData get outlinedButtonThemeData;
 }

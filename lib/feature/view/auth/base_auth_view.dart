@@ -46,6 +46,7 @@ class _BaseAuthViewState extends State<BaseAuthView> {
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: SafeArea(
           child: CustomScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [
               if (context.routeData.name == SignUpRoute.name)
                 const SliverAppBar(),

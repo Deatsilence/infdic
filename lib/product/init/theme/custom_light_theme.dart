@@ -15,6 +15,7 @@ final class CustomLightTheme implements CustomTheme {
       colorScheme: CustomColorScheme.lightColorScheme,
       fontFamily: GoogleFonts.roboto().fontFamily,
       elevatedButtonTheme: elevatedButtonThemeData,
+      outlinedButtonTheme: outlinedButtonThemeData,
     );
   }
 
@@ -32,6 +33,31 @@ final class CustomLightTheme implements CustomTheme {
       disabledBackgroundColor: CustomColorScheme.lightColorScheme.onSurface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadiusManager.moreBorderRadius,
+      ),
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+    ),
+  );
+
+  @override
+
+  /// [outlinedButtonThemeData] is theme data for outlined button light theme
+  final OutlinedButtonThemeData outlinedButtonThemeData =
+      OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      backgroundColor: CustomColorScheme.lightColorScheme.onPrimary,
+      foregroundColor: CustomColorScheme.lightColorScheme.primary,
+      side: BorderSide(
+        color: CustomColorScheme.lightColorScheme.primary,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusManager.moreBorderRadius,
+      ),
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
       ),
     ),
   );
