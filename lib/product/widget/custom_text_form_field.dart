@@ -8,6 +8,7 @@ final class CustomTextFormField extends StatefulWidget {
   /// Constructor
   const CustomTextFormField({
     super.key,
+    this.hintText,
     this.labelText,
     this.validator,
     this.onSaved,
@@ -29,6 +30,7 @@ final class CustomTextFormField extends StatefulWidget {
   });
 
   final String? labelText;
+  final String? hintText;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
   final void Function(String)? onFieldSubmitted;
@@ -59,6 +61,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,
         labelText: widget.labelText,
+        hintText: widget.hintText,
         borderColor:
             widget.borderColor ?? Theme.of(context).colorScheme.primary,
         enableBorderColor:

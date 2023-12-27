@@ -1,3 +1,4 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/product/init/application_initialize.dart';
@@ -29,7 +30,10 @@ final class MyApp extends StatelessWidget {
         darkTheme: CustomDarkTheme().themeData,
         themeMode: ThemeMode.light,
         debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
+        localizationsDelegates: [
+          ...context.localizationDelegates,
+          CountryLocalizations.delegate,
+        ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         routerConfig: _appRouter.config(),

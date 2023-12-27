@@ -32,15 +32,14 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
           delegate: SliverChildListDelegate(
             [
               AuthSvg(
-                height: 30.h,
-                child: Assets.icons.icSignup.svg(package: 'gen'),
+                child: Assets.icons.icSignup.svg(package: 'gen', height: 30.h),
               ),
               const AuthTitle(title: LocaleKeys.auth_signUp)
                   .onlyPadding(top: 1.h, bottom: 1.h),
               CustomTextFormField(
                 controller: emailController,
                 prefixIcon: const Icon(Icons.email_outlined),
-                labelText: LocaleKeys.auth_email.tr(),
+                hintText: LocaleKeys.auth_email.tr(),
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 validator: Validation().emailValidator,
@@ -48,7 +47,8 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
               CustomTextFormField(
                 controller: passwordController,
                 prefixIcon: const Icon(Icons.lock_outline),
-                labelText: LocaleKeys.auth_password.tr(),
+                hintText: LocaleKeys.auth_password.tr(),
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.next,
                 validator: Validation().passwordValidator,
@@ -56,7 +56,8 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
               CustomTextFormField(
                 controller: confirmPasswordController,
                 prefixIcon: const Icon(Icons.repeat),
-                labelText: LocaleKeys.auth_confirm_password.tr(),
+                hintText: LocaleKeys.auth_confirm_password.tr(),
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 validator: confirmPasswordValidator,

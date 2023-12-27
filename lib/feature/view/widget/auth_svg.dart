@@ -5,26 +5,20 @@ import 'package:flutter/material.dart';
 final class AuthSvg extends StatelessWidget {
   /// Constructor
   const AuthSvg({
-    required double height,
     required Widget child,
     super.key,
-  })  : _height = height,
-        _child = child;
+  }) : _child = child;
 
-  final double? _height;
   final Widget? _child;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: _height,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusManager.moreBorderRadius,
-        ),
-        color: Theme.of(context).colorScheme.outlineVariant,
-        child: _child,
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusManager.moreBorderRadius,
       ),
+      color: Theme.of(context).colorScheme.outlineVariant,
+      child: _child,
     );
   }
 }

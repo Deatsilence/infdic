@@ -13,13 +13,18 @@
     "please_enter_a_valid_email": "Please enter a valid email",
     "please_enter_a_valid_password": "Please enter a valid password",
     "passwords_have_to_match": "Passwords have to match",
-    "password_repeat_have_not_to_be_empty": "Password repeat have not to be empty"
+    "password_repeat_have_not_to_be_empty": "Password repeat have not to be empty",
+    "verification": "Verification",
+    "verification_body": "Please add your phone number to verify. We'll send you a verification code"
   },
   "general": {
     "button": {
       "login": "Sign In",
       "signUp": "Sign Up",
       "forgot": "I Forgotten Password"
+    },
+    "text_form_field": {
+      "search": "Search"
     }
   }
 }

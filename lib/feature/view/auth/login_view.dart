@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/login_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
@@ -35,21 +34,21 @@ class _LoginViewState extends State<LoginView> with LoginViewMixin {
           delegate: SliverChildListDelegate(
             [
               AuthSvg(
-                height: 40.h,
-                child: Assets.icons.icLogin.svg(package: 'gen'),
+                child: Assets.icons.icLogin.svg(package: 'gen', height: 40.h),
               ),
               const AuthTitle(title: LocaleKeys.auth_login)
                   .onlyPadding(top: 1.h, bottom: 1.h),
               CustomTextFormField(
                 prefixIcon: const Icon(Icons.email_outlined),
-                labelText: LocaleKeys.auth_email.tr(),
+                hintText: LocaleKeys.auth_email.tr(),
                 keyboardType: TextInputType.emailAddress,
                 textInputAction: TextInputAction.next,
                 validator: Validation().emailValidator,
               ),
               CustomTextFormField(
                 prefixIcon: const Icon(Icons.password_outlined),
-                labelText: LocaleKeys.auth_password.tr(),
+                hintText: LocaleKeys.auth_password.tr(),
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 validator: Validation().passwordValidator,

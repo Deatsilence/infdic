@@ -32,6 +32,6 @@ mixin LoginViewMixin on State<LoginView> {
 
   /// [onSignUpPressed] is function for sign in button
   Future<void> onSignUpPressed() async {
-    await context.router.push<bool?>(const SignUpRoute());
+    await context.router.push<bool?>(const PhoneNumberVerificationRoute());
   }
 }

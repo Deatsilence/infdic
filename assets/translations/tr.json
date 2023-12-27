@@ -13,13 +13,18 @@
     "please_enter_a_valid_email": "Lütfen geçerli bir email giriniz",
     "please_enter_a_valid_password": "Lütfen geçerli bir şifre giriniz",
     "passwords_have_to_match": "Şifreler aynı olmalıdır",
-    "password_repeat_have_not_to_be_empty": "Şifre tekrarı boş olamaz"
+    "password_repeat_have_not_to_be_empty": "Şifre tekrarı boş olamaz",
+    "verification": "Doğrulama",
+    "verification_body": "Doğrulamak için lütfen telefon numaranızı ekleyin. Size bir doğrulama kodu göndereceğiz"
   },
   "general": {
     "button": {
       "login": "Giriş Yap",
       "signUp": "Kayıt ol",
       "forgot": "Şifremi Unuttum"
+    },
+    "text_form_field": {
+      "search": "Ara"
     }
   }
 }

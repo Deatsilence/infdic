@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LoginView(),
       );
     },
+    PhoneNumberVerificationRoute.name: (routeData) {
+      return AutoRoutePage<bool?>(
+        routeData: routeData,
+        child: const PhoneNumberVerificationView(),
+      );
+    },
     SignUpRoute.name: (routeData) {
       return AutoRoutePage<bool?>(
         routeData: routeData,
@@ -60,6 +66,20 @@ class LoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PhoneNumberVerificationView]
+class PhoneNumberVerificationRoute extends PageRouteInfo<void> {
+  const PhoneNumberVerificationRoute({List<PageRouteInfo>? children})
+      : super(
+          PhoneNumberVerificationRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PhoneNumberVerificationRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
