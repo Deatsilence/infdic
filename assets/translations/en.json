@@ -24,7 +24,8 @@
       "forgot": "I Forgotten Password"
     },
     "text_form_field": {
-      "search": "Search"
+      "search": "Search",
+      "please_enter_a_phone_number": "Please enter a phone number"
     }
   }
 }

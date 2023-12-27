@@ -24,7 +24,8 @@
       "forgot": "Şifremi Unuttum"
     },
     "text_form_field": {
-      "search": "Ara"
+      "search": "Ara",
+      "please_enter_a_phone_number": "Lütfen telefon numarası giriniz"
     }
   }
 }
