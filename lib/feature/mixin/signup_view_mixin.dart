@@ -6,18 +6,39 @@ import 'package:infdic/product/utility/extension/custom_string_extension.dart';
 
 /// [SignUpViewMixin] is logics of signup view
 mixin SignUpViewMixin on State<SignUpView> {
-  /// This is key for signup form
-  final signUpFormKey = GlobalKey<FormState>();
+  /// [_signUpFormKey] is key for signup form
+  late final GlobalKey<FormState> _signUpFormKey;
+
+  /// [_emailController] is controller for email field
+  late final TextEditingController _emailController;
+
+  /// [_passwordController] is controller for email field
+  late final TextEditingController _passwordController;
+
+  /// [_confirmPasswordController] is controller for email field
+  late final TextEditingController _confirmPasswordController;
+
+  /// [signUpFormKey] is key for signup form
+  GlobalKey<FormState> get signUpFormKey => _signUpFormKey;
 
   /// [emailController] is controller for email field
-  final TextEditingController emailController = TextEditingController();
+  TextEditingController get emailController => _emailController;
 
   /// [passwordController] is controller for email field
-  final TextEditingController passwordController = TextEditingController();
+  TextEditingController get passwordController => _passwordController;
 
   /// [confirmPasswordController] is controller for email field
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  TextEditingController get confirmPasswordController =>
+      _confirmPasswordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _signUpFormKey = GlobalKey<FormState>();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+  }
 
   @override
   void dispose() {

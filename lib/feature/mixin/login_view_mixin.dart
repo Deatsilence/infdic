@@ -4,16 +4,33 @@ import 'package:infdic/feature/view/auth/login_view.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 
 /// This is logics of login view
-/// [loginFormKey] is key for login form
+/// [_loginFormKey] is key for login form
 mixin LoginViewMixin on State<LoginView> {
   /// This is key for login form
-  final loginFormKey = GlobalKey<FormState>();
+  late final GlobalKey<FormState> _loginFormKey;
+
+  /// [_emailController] is controller for email field
+  late final TextEditingController _emailController;
+
+  /// [_passwordController] is controller for email field
+  late final TextEditingController _passwordController;
+
+  /// [loginFormKey] is key for login form
+  GlobalKey<FormState> get loginFormKey => _loginFormKey;
 
   /// [emailController] is controller for email field
-  final TextEditingController emailController = TextEditingController();
+  TextEditingController get emailController => _emailController;
 
   /// [passwordController] is controller for email field
-  final TextEditingController passwordController = TextEditingController();
+  TextEditingController get passwordController => _passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _loginFormKey = GlobalKey<FormState>();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+  }
 
   @override
   void dispose() {

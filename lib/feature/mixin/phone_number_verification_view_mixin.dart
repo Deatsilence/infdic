@@ -1,20 +1,19 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/phone_number_verification_view.dart';
+import 'package:infdic/feature/view_model/phone_number_view_model.dart';
 
-/// [PhoneNumberVerificationViewMixin] is logics of phone number verification view
-mixin PhoneNumberVerificationViewMixin on State<PrefixPhoneNumberPicker> {
-  /// [selectedCountry] is controller for phone number field
-  Country selectedCountry = Country(
-    phoneCode: '90',
-    countryCode: 'TR',
-    e164Sc: 0,
-    geographic: true,
-    level: 1,
-    name: 'Turkey',
-    example: 'Turkey',
-    displayName: 'Turkey',
-    displayNameNoCountryCode: 'TR',
-    e164Key: '',
-  );
+/// [PhoneNumberVerificationViewMixin] is the view model of home page
+mixin PhoneNumberVerificationViewMixin on State<PhoneNumberVerificationView> {
+  /// [_phoneNumberVerificationViewModel] is the view model of home page
+  late final PhoneNumberVerificationViewModel _phoneNumberVerificationViewModel;
+
+  /// [phoneNumberVerificationViewModel] is the view model of home page
+  PhoneNumberVerificationViewModel get phoneNumberVerificationViewModel =>
+      _phoneNumberVerificationViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneNumberVerificationViewModel = PhoneNumberVerificationViewModel();
+  }
 }
