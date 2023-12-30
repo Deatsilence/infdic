@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/login_view.dart';
+import 'package:infdic/feature/view/auth/otp_view.dart';
 import 'package:infdic/feature/view/auth/phone_number_verification_view.dart';
 import 'package:infdic/feature/view/auth/signup_view.dart';
 import 'package:infdic/feature/view/home_view.dart';
@@ -16,5 +18,6 @@ final class AppRouter extends _$AppRouter {
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: PhoneNumberVerificationRoute.page),
+        AutoRoute(page: OTPRoute.page),
       ];
 }

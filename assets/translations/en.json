@@ -15,7 +15,9 @@
     "passwords_have_to_match": "Passwords have to match",
     "password_repeat_have_not_to_be_empty": "Password repeat have not to be empty",
     "verification": "Verification",
-    "verification_body": "Please add your phone number to verify. We'll send you a verification code"
+    "verification_body": "Please add your phone number to verify. We'll send you a verification code",
+    "verification_code": "Verification Code",
+    "verification_code_body": "Please enter the verification code received on your mobile phone. It may take some time for the verification code to arrive."
   },
   "general": {
     "button": {

@@ -52,6 +52,7 @@ class _PhoneNumberVerificationViewState
                 LocaleKeys.auth_verification_body,
               ).tr(),
               CustomTextFormField(
+                controller: phoneNumberController,
                 hintText: LocaleKeys
                     .general_text_form_field_please_enter_a_phone_number
                     .tr(),
@@ -64,9 +65,26 @@ class _PhoneNumberVerificationViewState
                   viewModel: phoneNumberVerificationViewModel,
                 ),
               ),
-              AuthCustomElevatedButton(
-                onPressed: () {},
-                child: const Text('Send'),
+              BlocSelector<PhoneNumberVerificationViewModel,
+                  PhoneNumberVerificationViewState, Country>(
+                selector: (state) {
+                  return state.selectedCountry;
+                },
+                builder: (context, state) {
+                  return AuthCustomElevatedButton(
+                    onPressed: () {
+                      final phoneNumber = phoneNumberController.text.trim();
+
+                      debugPrint(phoneNumberController.text);
+                      debugPrint("+${state.phoneCode}$phoneNumber");
+                      phoneNumberVerificationViewModel.sendVerfiyCodeToPhone(
+                        context: context,
+                        phoneNumber: "+${state.phoneCode}$phoneNumber",
+                      );
+                    },
+                    child: const Text('Send'),
+                  );
+                },
               ),
             ].seperate(space: 1.h),
           ),

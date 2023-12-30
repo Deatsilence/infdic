@@ -1,10 +1,12 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:infdic/product/service/firebase_network_manager.dart';
+import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/phone_number_view_state.dart';
 
 /// [PhoneNumberVerificationViewModel] is the view model of home page
 final class PhoneNumberVerificationViewModel
-    extends Cubit<PhoneNumberVerificationViewState> {
+    extends BaseCubit<PhoneNumberVerificationViewState> {
   /// Constructor
   PhoneNumberVerificationViewModel()
       : super(
@@ -25,6 +27,7 @@ final class PhoneNumberVerificationViewModel
           ),
         );
 
+  /// [changeLoading] is the loading state of phone number page
   void changeLoading() {
     emit(state.copyWith(isLoading: !state.isLoading));
   }
@@ -32,5 +35,14 @@ final class PhoneNumberVerificationViewModel
   /// [selectACountry] is the selected country of phone number page
   void selectACountry(Country country) {
     emit(state.copyWith(selectedCountry: country));
+  }
+
+  /// [sendVerfiyCodeToPhone] is the selected country of phone number page
+  void sendVerfiyCodeToPhone({
+    required BuildContext context,
+    required String phoneNumber,
+  }) {
+    FirebaseNetworkManager.instance
+        .verifyPhoneNumber(context: context, phoneNumber: phoneNumber);
   }
 }

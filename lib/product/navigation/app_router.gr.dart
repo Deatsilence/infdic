@@ -27,6 +27,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LoginView(),
       );
     },
+    OTPRoute.name: (routeData) {
+      final args = routeData.argsAs<OTPRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: OTPView(
+          verificationId: args.verificationId,
+          key: args.key,
+        ),
+      );
+    },
     PhoneNumberVerificationRoute.name: (routeData) {
       return AutoRoutePage<bool?>(
         routeData: routeData,
@@ -68,6 +78,43 @@ class LoginRoute extends PageRouteInfo<void> {
   static const String name = 'LoginRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OTPView]
+class OTPRoute extends PageRouteInfo<OTPRouteArgs> {
+  OTPRoute({
+    required String verificationId,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OTPRoute.name,
+          args: OTPRouteArgs(
+            verificationId: verificationId,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'OTPRoute';
+
+  static const PageInfo<OTPRouteArgs> page = PageInfo<OTPRouteArgs>(name);
+}
+
+class OTPRouteArgs {
+  const OTPRouteArgs({
+    required this.verificationId,
+    this.key,
+  });
+
+  final String verificationId;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'OTPRouteArgs{verificationId: $verificationId, key: $key}';
+  }
 }
 
 /// generated route for

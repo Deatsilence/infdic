@@ -15,7 +15,9 @@
     "passwords_have_to_match": "Şifreler aynı olmalıdır",
     "password_repeat_have_not_to_be_empty": "Şifre tekrarı boş olamaz",
     "verification": "Doğrulama",
-    "verification_body": "Doğrulamak için lütfen telefon numaranızı ekleyin. Size bir doğrulama kodu göndereceğiz"
+    "verification_body": "Doğrulamak için lütfen telefon numaranızı ekleyin. Size bir doğrulama kodu göndereceğiz",
+    "verification_code": "Doğrulama Kodu",
+    "verification_code_body": "Lütfen telefonunuza gelen doğrulama kodunu giriniz. Doğrulama kodunun gelmesi biraz zaman alabilir."
   },
   "general": {
     "button": {

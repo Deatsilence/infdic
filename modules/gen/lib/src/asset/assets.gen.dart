@@ -28,6 +28,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/ic_login.svg
   SvgGenImage get icLogin => const SvgGenImage('assets/icons/ic_login.svg');
 
+  /// File path: assets/icons/ic_secure_code.svg
+  SvgGenImage get icSecureCode =>
+      const SvgGenImage('assets/icons/ic_secure_code.svg');
+
   /// File path: assets/icons/ic_signup.svg
   SvgGenImage get icSignup => const SvgGenImage('assets/icons/ic_signup.svg');
 
@@ -36,7 +40,8 @@ class $AssetsIconsGen {
       const SvgGenImage('assets/icons/ic_verification.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [icLogin, icSignup, icVerification];
+  List<SvgGenImage> get values =>
+      [icLogin, icSecureCode, icSignup, icVerification];
 }
 
 class $AssetsLottieGen {
