@@ -26,6 +26,7 @@ dependencies:
   firebase_auth: ^4.15.3
   firebase_storage: ^11.5.6
   cloud_firestore: ^4.13.6
+  pinput: ^3.0.1
 
   # Config
   easy_localization: ^3.0.3

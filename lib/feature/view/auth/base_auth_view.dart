@@ -49,7 +49,8 @@ class _BaseAuthViewState extends State<BaseAuthView> {
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [
               if (context.routeData.name == SignUpRoute.name ||
-                  context.routeData.name == PhoneNumberVerificationRoute.name)
+                  context.routeData.name == PhoneNumberVerificationRoute.name ||
+                  context.routeData.name == OTPRoute.name)
                 const SliverAppBar(),
               SliverPadding(
                 padding: PaddingManager

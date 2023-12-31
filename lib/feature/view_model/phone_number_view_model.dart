@@ -43,6 +43,6 @@ final class PhoneNumberVerificationViewModel
     required String phoneNumber,
   }) {
     FirebaseNetworkManager.instance
-        .verifyPhoneNumber(context: context, phoneNumber: phoneNumber);
+        .sendOTPCodeToPhoneNumber(context: context, phoneNumber: phoneNumber);
   }
 }

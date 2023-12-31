@@ -76,10 +76,10 @@ class _PhoneNumberVerificationViewState
                       final phoneNumber = phoneNumberController.text.trim();
 
                       debugPrint(phoneNumberController.text);
-                      debugPrint("+${state.phoneCode}$phoneNumber");
+                      debugPrint('+${state.phoneCode}$phoneNumber');
                       phoneNumberVerificationViewModel.sendVerfiyCodeToPhone(
                         context: context,
-                        phoneNumber: "+${state.phoneCode}$phoneNumber",
+                        phoneNumber: '+${state.phoneCode}$phoneNumber',
                       );
                     },
                     child: const Text('Send'),
