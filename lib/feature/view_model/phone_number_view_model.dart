@@ -1,5 +1,5 @@
 import 'package:country_picker/country_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:infdic/product/service/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/phone_number_view_state.dart';
@@ -24,6 +24,7 @@ final class PhoneNumberVerificationViewModel
               displayNameNoCountryCode: 'TR',
               e164Key: '',
             ),
+            phoneNumber: '',
           ),
         );
 
@@ -39,10 +40,20 @@ final class PhoneNumberVerificationViewModel
 
   /// [sendVerfiyCodeToPhone] is the selected country of phone number page
   void sendVerfiyCodeToPhone({
-    required BuildContext context,
+    required void Function(PhoneAuthCredential) verificationCompleted,
+    required void Function(FirebaseAuthException) verificationFailed,
+    required void Function(String, int?) codeSent,
+    required void Function(String) codeAutoRetrievalTimeout,
     required String phoneNumber,
   }) {
-    FirebaseNetworkManager.instance
-        .sendOTPCodeToPhoneNumber(context: context, phoneNumber: phoneNumber);
+    emit(state.copyWith(isLoading: true));
+    FirebaseNetworkManager.instance.sendOTPCodeToPhoneNumber(
+      phoneNumber: phoneNumber,
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+    );
+    emit(state.copyWith(isLoading: false));
   }
 }

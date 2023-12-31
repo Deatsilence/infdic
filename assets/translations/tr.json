@@ -23,7 +23,8 @@
     "button": {
       "login": "Giriş Yap",
       "signUp": "Kayıt ol",
-      "forgot": "Şifremi Unuttum"
+      "forgot": "Şifremi Unuttum",
+      "continue": "Devam Et"
     },
     "text_form_field": {
       "search": "Ara",

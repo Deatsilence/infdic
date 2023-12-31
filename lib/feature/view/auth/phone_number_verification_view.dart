@@ -11,6 +11,7 @@ import 'package:infdic/feature/view/auth/base_auth_view.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/feature/view_model/phone_number_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
+import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/state/phone_number_view_state.dart';
 import 'package:infdic/product/utility/extension/list_gutter_extension.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
@@ -23,7 +24,10 @@ part '../../part_of_view/part_of_phone_number_verification_view.dart';
 @RoutePage<bool?>()
 final class PhoneNumberVerificationView extends StatefulWidget {
   /// Constructor
-  const PhoneNumberVerificationView({super.key});
+  const PhoneNumberVerificationView({required this.email, super.key});
+
+  /// [email] is the phone number of user
+  final String email;
 
   @override
   State<PhoneNumberVerificationView> createState() =>
@@ -78,8 +82,26 @@ class _PhoneNumberVerificationViewState
                       debugPrint(phoneNumberController.text);
                       debugPrint('+${state.phoneCode}$phoneNumber');
                       phoneNumberVerificationViewModel.sendVerfiyCodeToPhone(
-                        context: context,
                         phoneNumber: '+${state.phoneCode}$phoneNumber',
+                        verificationCompleted: (p0) =>
+                            debugPrint(p0.toString()),
+                        // context.router.push(const SignUpRoute()),
+                        codeSent: (verificationId, code) {
+                          debugPrint('code: $code');
+                          context.router.push(
+                            OTPRoute(
+                              verificationId: verificationId,
+                              email: widget.email,
+                              phoneNumber: phoneNumber,
+                            ),
+                          );
+                        },
+                        verificationFailed: (p0) {
+                          debugPrint(p0.message);
+                        },
+                        codeAutoRetrievalTimeout: (p0) {
+                          debugPrint(p0);
+                        },
                       );
                     },
                     child: const Text('Send'),

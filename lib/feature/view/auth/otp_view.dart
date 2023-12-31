@@ -19,16 +19,23 @@ import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:pinput/pinput.dart';
 import 'package:sizer/sizer.dart';
 
+part '../../part_of_view/part_of_otp_view.dart';
+
 /// [OTPView] is the view of OTP
 @RoutePage()
 class OTPView extends StatefulWidget {
   /// [key] is the key of [OTPView]
   const OTPView({
     required this.verificationId,
+    required this.email,
+    required this.phoneNumber,
     super.key,
   });
 
   final String verificationId;
+  final String email;
+  final String phoneNumber;
+
   @override
   State<OTPView> createState() => _OTPViewState();
 }
@@ -54,70 +61,63 @@ class _OTPViewState extends State<OTPView> with OTPViewMixin {
                 LocaleKeys.auth_verification_code_body,
                 textAlign: TextAlign.justify,
               ).tr(),
-              Pinput(
-                onCompleted: (value) async {
-                  if (value.hasValue && value.length == 6) {
-                    otpViewModel.setOTPCode(otpCode: value);
-                  }
-                },
-                length: 6,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                followingPinTheme: PinTheme(
-                  height: 6.h,
-                  width: 10.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusManager.moreBorderRadius,
-                    border: Border.all(
-                      color: Theme.of(context).disabledColor,
-                    ),
-                  ),
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-                defaultPinTheme: PinTheme(
-                  height: 6.h,
-                  width: 10.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadiusManager.moreBorderRadius,
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-              BlocSelector<OTPViewModel, OTPViewState, String>(
-                selector: (state) {
-                  return state.otpCode;
-                },
-                builder: (context, state) {
-                  return AuthCustomElevatedButton(
-                    onPressed: () {
-                      otpViewModel.verifyOTP(
-                        userOtp: state,
-                        verificationId: widget.verificationId,
-                        onSuccess: (isSuccess) {
-                          if (isSuccess) {
-                            context.router.push(const SignUpRoute());
-                          }
-                        },
-                      );
-                    },
-                    child: const Text('Verify'),
-                  );
-                },
+              _CustomPinput(otpViewModel: otpViewModel),
+              _VerifyCustomElevatedButton(
+                otpViewModel: otpViewModel,
+                widget: widget,
               ),
             ].seperate(space: 1.h),
           ),
         ),
       ),
+    );
+  }
+}
+
+final class _VerifyCustomElevatedButton extends StatelessWidget {
+  const _VerifyCustomElevatedButton({
+    required this.otpViewModel,
+    required this.widget,
+  });
+
+  final OTPViewModel otpViewModel;
+  final OTPView widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<OTPViewModel, OTPViewState, String>(
+      selector: (state) {
+        return state.otpCode;
+      },
+      builder: (context, state) {
+        return AuthCustomElevatedButton(
+          onPressed: () async {
+            if (state.hasValue && state.length == 6) {
+              await otpViewModel.verifyOTP(
+                userOtp: state,
+                verificationId: widget.verificationId,
+                onExist: (user) {},
+                onNotExist: (user) {
+                  otpViewModel.setUser(user: user);
+                  final infDicUser = InfDicUser(
+                    uId: user?.uid,
+                    email: widget.email,
+                    phoneNumber: widget.phoneNumber,
+                    createdAt: DateTime.now(),
+                  );
+                  otpViewModel.setStoreData(infDicUser: infDicUser);
+                  context.router.pushAndPopUntil(
+                    predicate: (route) =>
+                        route.settings.name == const SignUpRoute().routeName,
+                    const DictionaryRoute(),
+                  );
+                },
+              );
+            }
+          },
+          child: const Text('Verify'),
+        );
+      },
     );
   }
 }

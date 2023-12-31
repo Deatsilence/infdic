@@ -23,7 +23,8 @@
     "button": {
       "login": "Sign In",
       "signUp": "Sign Up",
-      "forgot": "I Forgotten Password"
+      "forgot": "I Forgotten Password",
+      "continue": "Continue"
     },
     "text_form_field": {
       "search": "Search",

@@ -1,9 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:infdic/product/navigation/app_router.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:gen/gen.dart';
 
 /// [FirebaseNetworkManager] is the network manager of firebase
 final class FirebaseNetworkManager {
@@ -18,33 +16,21 @@ final class FirebaseNetworkManager {
   final _authInstance = FirebaseAuth.instance;
   final _firebaseFirestore = FirebaseFirestore.instance;
 
-  /// [signUpWithEmailAndPassword] is the sign in with email and password
-  Future<UserCredential> signUpWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    final userResponse = await _authInstance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-    return userResponse;
-  }
-
   /// [sendOTPCodeToPhoneNumber] is the verify phone number
   /// for signUp or forget password
   Future<void> sendOTPCodeToPhoneNumber({
-    required BuildContext context,
+    required void Function(PhoneAuthCredential) verificationCompleted,
+    required void Function(FirebaseAuthException) verificationFailed,
+    required void Function(String, int?) codeSent,
+    required void Function(String) codeAutoRetrievalTimeout,
     required String phoneNumber,
   }) async {
     await _authInstance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
-      verificationCompleted: (phoneAuthCredential) {
-        context.router.push(const SignUpRoute());
-      },
-      verificationFailed: print,
-      codeSent: (verificationId, code) =>
-          context.router.push(OTPRoute(verificationId: verificationId)),
-      codeAutoRetrievalTimeout: print,
+      verificationCompleted: verificationCompleted,
+      verificationFailed: verificationFailed,
+      codeSent: codeSent,
+      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
     );
   }
 
@@ -52,23 +38,43 @@ final class FirebaseNetworkManager {
   Future<void> verifyCode({
     required String verificationId,
     required String smsCode,
-    required void Function(bool isSuccess) onSuccess,
+    required void Function(bool? isSuccess, User? user) onSuccess,
   }) async {
     final cred = PhoneAuthProvider.credential(
       verificationId: verificationId,
       smsCode: smsCode,
     );
-    onSuccess(cred.smsCode.hasValue);
-    debugPrint(cred.toString());
+    final user = (await _authInstance.signInWithCredential(cred)).user;
+
+    onSuccess(user != null, user);
+    // onSuccess(cred.smsCode.hasValue);
+    debugPrint('credSmsCode: ${cred.smsCode}');
   }
 
+  // /// [_getCurrentUser] is the get current user
+  // User? _getCurrentUser() {
+  //   return _authInstance.currentUser;
+  // }
+
+  // /// [checkUserAvailable] is the check user available
+  // Future<bool> checkUserAvailable() async {
+  //   final currentUser = _getCurrentUser();
+  //   return currentUser != null ? true : false;
+  // }
+
   /// [checkExistingUser] is the check existing user
-  Future<bool> checkExistingUser() async {
-    final snapshot = await _firebaseFirestore
-        .collection('users')
-        .doc(_authInstance.currentUser!.uid)
-        .get();
+  Future<bool> checkExistingUser({required String id}) async {
+    final snapshot = await _firebaseFirestore.collection('user').doc(id).get();
 
     return snapshot.exists;
+  }
+
+  /// [saveUserDataToFirebase] is the save user data to firebase
+  Future<void> saveUserDataToFirebase({
+    required InfDicUser infDicUser,
+    required Map<String, dynamic> data,
+    VoidCallback? onSuccess,
+  }) async {
+    await _firebaseFirestore.collection('user').doc(infDicUser.uId).set(data);
   }
 }
