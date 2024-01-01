@@ -17,6 +17,7 @@ dependencies:
 
   # Core
   equatable: ^2.0.5
+  shared_preferences: ^2.2.2
 
   # State
   flutter_bloc: ^8.1.3

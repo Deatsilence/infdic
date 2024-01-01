@@ -39,21 +39,22 @@ final class PhoneNumberVerificationViewModel
   }
 
   /// [sendVerfiyCodeToPhone] is the selected country of phone number page
-  void sendVerfiyCodeToPhone({
+  Future<void> sendVerfiyCodeToPhone({
     required void Function(PhoneAuthCredential) verificationCompleted,
     required void Function(FirebaseAuthException) verificationFailed,
     required void Function(String, int?) codeSent,
     required void Function(String) codeAutoRetrievalTimeout,
     required String phoneNumber,
-  }) {
-    emit(state.copyWith(isLoading: true));
-    FirebaseNetworkManager.instance.sendOTPCodeToPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: verificationCompleted,
-      verificationFailed: verificationFailed,
-      codeSent: codeSent,
-      codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
-    );
-    emit(state.copyWith(isLoading: false));
+  }) async {
+    changeLoading();
+    await FirebaseNetworkManager.instance
+        .sendOTPCodeToPhoneNumber(
+          phoneNumber: phoneNumber,
+          verificationCompleted: verificationCompleted,
+          verificationFailed: verificationFailed,
+          codeSent: codeSent,
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        )
+        .whenComplete(changeLoading);
   }
 }

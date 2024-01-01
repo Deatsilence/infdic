@@ -10,6 +10,7 @@ import 'package:infdic/feature/mixin/otp_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/feature/view_model/otp_view_model.dart';
+import 'package:infdic/product/init/cache/cache_manager.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/state/otp_view_state.dart';
@@ -105,7 +106,17 @@ final class _VerifyCustomElevatedButton extends StatelessWidget {
                     phoneNumber: widget.phoneNumber,
                     createdAt: DateTime.now(),
                   );
-                  otpViewModel.setStoreData(infDicUser: infDicUser);
+                  otpViewModel
+                      .setStoreData(
+                        infDicUser: infDicUser,
+                      )
+                      .whenComplete(
+                        () =>
+                            CacheManager.instance.setSignInSP(isSignedIn: true),
+                      );
+                  CacheManager.instance
+                      .checkSignInSP()
+                      .then((value) => debugPrint(value.toString()));
                   context.router.pushAndPopUntil(
                     predicate: (route) =>
                         route.settings.name == const SignUpRoute().routeName,

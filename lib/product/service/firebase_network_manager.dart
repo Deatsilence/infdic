@@ -51,17 +51,6 @@ final class FirebaseNetworkManager {
     debugPrint('credSmsCode: ${cred.smsCode}');
   }
 
-  // /// [_getCurrentUser] is the get current user
-  // User? _getCurrentUser() {
-  //   return _authInstance.currentUser;
-  // }
-
-  // /// [checkUserAvailable] is the check user available
-  // Future<bool> checkUserAvailable() async {
-  //   final currentUser = _getCurrentUser();
-  //   return currentUser != null ? true : false;
-  // }
-
   /// [checkExistingUser] is the check existing user
   Future<bool> checkExistingUser({required String id}) async {
     final snapshot = await _firebaseFirestore.collection('user').doc(id).get();
@@ -73,8 +62,12 @@ final class FirebaseNetworkManager {
   Future<void> saveUserDataToFirebase({
     required InfDicUser infDicUser,
     required Map<String, dynamic> data,
-    VoidCallback? onSuccess,
   }) async {
     await _firebaseFirestore.collection('user').doc(infDicUser.uId).set(data);
+  }
+
+  ///
+  Future<void> signOut() async {
+    await _authInstance.signOut();
   }
 }

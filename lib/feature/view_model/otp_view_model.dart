@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/product/service/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
@@ -28,6 +27,7 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
     emit(state.copyWith(otpCode: otpCode));
   }
 
+  /// [verifyOTP] is the verify OTP code of OTP page
   Future<void> verifyOTP({
     required String verificationId,
     required String userOtp,
@@ -46,7 +46,7 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
             if (value) {
               // TODO: user exists in our app
             } else {
-              // TODO: new user
+              /// New user
               onNotExist(user);
             }
           });
@@ -59,15 +59,14 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
   /// [setStoreData] is the store data of OTP page
   Future<void> setStoreData({
     required InfDicUser infDicUser,
-    VoidCallback? onSuccess,
   }) async {
     changeLoading();
     final data = infDicUser.toJson();
-    await FirebaseNetworkManager.instance.saveUserDataToFirebase(
-      infDicUser: infDicUser,
-      data: data,
-      onSuccess: onSuccess,
-    );
-    changeLoading();
+    await FirebaseNetworkManager.instance
+        .saveUserDataToFirebase(
+          infDicUser: infDicUser,
+          data: data,
+        )
+        .whenComplete(changeLoading);
   }
 }

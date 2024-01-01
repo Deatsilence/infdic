@@ -1,5 +1,5 @@
 import 'package:infdic/product/state/base/base_cubit.dart';
-import 'package:infdic/product/state/signup_view_state.dart';
+import 'package:infdic/product/state/login_view_state.dart';
 
 /// [SignUpViewModel] is the view model of home page
 final class SignUpViewModel extends BaseCubit<SignUpViewState> {
@@ -7,5 +7,7 @@ final class SignUpViewModel extends BaseCubit<SignUpViewState> {
   SignUpViewModel() : super(const SignUpViewState());
 
   /// [changeLoading] is the loading state of home page
-  void changeLoading() {}
+  void changeLoading() {
+    emit(state.copyWith(isLoading: !state.isLoading));
+  }
 }

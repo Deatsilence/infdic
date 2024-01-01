@@ -78,9 +78,6 @@ class _PhoneNumberVerificationViewState
                   return AuthCustomElevatedButton(
                     onPressed: () {
                       final phoneNumber = phoneNumberController.text.trim();
-
-                      debugPrint(phoneNumberController.text);
-                      debugPrint('+${state.phoneCode}$phoneNumber');
                       phoneNumberVerificationViewModel.sendVerfiyCodeToPhone(
                         phoneNumber: '+${state.phoneCode}$phoneNumber',
                         verificationCompleted: (p0) =>
