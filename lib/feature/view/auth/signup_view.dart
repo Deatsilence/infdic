@@ -5,8 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/signup_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_auth_view.dart';
+import 'package:infdic/feature/view/widget/auth_custom_outlined_button.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
+import 'package:infdic/product/navigation/app_router.dart';
+import 'package:infdic/product/utility/extension/list_gutter_extension.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/validation/validation.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
@@ -52,8 +55,13 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
                   height: 8.h,
                   child: const Text(LocaleKeys.general_button_continue).tr(),
                 ),
-                // AuthIsInfoValid(controller: passwordController),
-              ],
+                AuthCustomOutlinedButton(
+                  onPressed: () =>
+                      context.router.push(PhoneNumberVerificationRoute()),
+                  height: 8.h,
+                  child: const Text(LocaleKeys.general_button_login).tr(),
+                ),
+              ].seperate(space: 1.h),
             ),
           ),
         ),

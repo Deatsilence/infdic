@@ -97,7 +97,27 @@ final class _VerifyCustomElevatedButton extends StatelessWidget {
               await otpViewModel.verifyOTP(
                 userOtp: state,
                 verificationId: widget.verificationId,
-                onExist: (user) {},
+                onExist: (user) {
+                  otpViewModel.setUser(user: user);
+                  otpViewModel
+                      .getUser(id: user!.uid)
+                      .then(
+                        (infDicUser) => CacheManager.instance
+                            .setUserDataToSP(infDicUser: infDicUser),
+                      )
+                      .whenComplete(
+                        () =>
+                            CacheManager.instance.setSignInSP(isSignedIn: true),
+                      )
+                      .whenComplete(
+                        () => context.router.pushAndPopUntil(
+                          predicate: (route) =>
+                              route.settings.name ==
+                              PhoneNumberVerificationRoute().routeName,
+                          const DictionaryRoute(),
+                        ),
+                      );
+                },
                 onNotExist: (user) {
                   otpViewModel.setUser(user: user);
                   final infDicUser = InfDicUser(
@@ -113,15 +133,19 @@ final class _VerifyCustomElevatedButton extends StatelessWidget {
                       .whenComplete(
                         () =>
                             CacheManager.instance.setSignInSP(isSignedIn: true),
+                      )
+                      .whenComplete(
+                        () => CacheManager.instance
+                            .setUserDataToSP(infDicUser: infDicUser),
+                      )
+                      .whenComplete(
+                        () => context.router.pushAndPopUntil(
+                          predicate: (route) =>
+                              route.settings.name ==
+                              const SignUpRoute().routeName,
+                          const DictionaryRoute(),
+                        ),
                       );
-                  CacheManager.instance
-                      .checkSignInSP()
-                      .then((value) => debugPrint(value.toString()));
-                  context.router.pushAndPopUntil(
-                    predicate: (route) =>
-                        route.settings.name == const SignUpRoute().routeName,
-                    const DictionaryRoute(),
-                  );
                 },
               );
             }

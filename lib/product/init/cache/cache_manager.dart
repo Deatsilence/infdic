@@ -47,7 +47,12 @@ final class CacheManager {
     _checkPreferences();
     return _sharedPreferences!.setString(
       LocaleCacheKey.userModel,
-      jsonEncode(infDicUser.toJson()),
+      jsonEncode(
+        {LocaleCacheKey.userModel: infDicUser},
+        toEncodable: (Object? value) => value is InfDicUser
+            ? infDicUser.toJson()
+            : throw UnsupportedError('Cannot convert to JSON: $value'),
+      ),
     );
   }
 

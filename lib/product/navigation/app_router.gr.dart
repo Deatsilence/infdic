@@ -40,7 +40,8 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     PhoneNumberVerificationRoute.name: (routeData) {
-      final args = routeData.argsAs<PhoneNumberVerificationRouteArgs>();
+      final args = routeData.argsAs<PhoneNumberVerificationRouteArgs>(
+          orElse: () => const PhoneNumberVerificationRouteArgs());
       return AutoRoutePage<bool?>(
         routeData: routeData,
         child: PhoneNumberVerificationView(
@@ -138,7 +139,7 @@ class OTPRouteArgs {
 class PhoneNumberVerificationRoute
     extends PageRouteInfo<PhoneNumberVerificationRouteArgs> {
   PhoneNumberVerificationRoute({
-    required String email,
+    String? email,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
@@ -158,11 +159,11 @@ class PhoneNumberVerificationRoute
 
 class PhoneNumberVerificationRouteArgs {
   const PhoneNumberVerificationRouteArgs({
-    required this.email,
+    this.email,
     this.key,
   });
 
-  final String email;
+  final String? email;
 
   final Key? key;
 

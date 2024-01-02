@@ -44,7 +44,8 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
               .checkExistingUser(id: user!.uid)
               .then((value) {
             if (value) {
-              // TODO: user exists in our app
+              /// user exist
+              onExist(user);
             } else {
               /// New user
               onNotExist(user);
@@ -68,5 +69,15 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
           data: data,
         )
         .whenComplete(changeLoading);
+  }
+
+  Future<InfDicUser> getUser({required String id}) async {
+    late InfDicUser infDicUser;
+    await FirebaseNetworkManager.instance
+        .getDataFromFirestore(id: id)
+        .then((value) {
+      infDicUser = InfDicUser.fromJson(value.data() ?? {});
+    });
+    return infDicUser;
   }
 }

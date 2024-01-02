@@ -1,5 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 
@@ -66,8 +66,17 @@ final class FirebaseNetworkManager {
     await _firebaseFirestore.collection('user').doc(infDicUser.uId).set(data);
   }
 
-  ///
+  /// [signOut] is the sign out of [FirebaseAuth
   Future<void> signOut() async {
     await _authInstance.signOut();
   }
+
+  ///  [getCurrentUser] is the get current user
+  User? getCurrentUser() => _authInstance.currentUser;
+
+  /// [getDataFromFirestore] is the get data from firestore
+  Future<DocumentSnapshot<Map<String, dynamic>>> getDataFromFirestore({
+    required String id,
+  }) async =>
+      _firebaseFirestore.collection('user').doc(id).get();
 }
