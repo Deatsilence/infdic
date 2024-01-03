@@ -71,18 +71,21 @@ class _PhoneNumberVerificationViewState
                   ),
                   validator: phoneNumberValidator,
                 ),
-                BlocSelector<PhoneNumberVerificationViewModel,
-                    PhoneNumberVerificationViewState, Country>(
-                  selector: (state) {
-                    return state.selectedCountry;
-                  },
+                BlocBuilder<PhoneNumberVerificationViewModel,
+                    PhoneNumberVerificationViewState>(
                   builder: (context, state) {
                     return AuthCustomElevatedButton(
                       onPressed: () {
-                        onPhoneNumberPressed(state: state);
+                        onPhoneNumberPressed(state: state.selectedCountry);
                       },
                       height: 8.h,
-                      child: const Text('Login').tr(),
+                      child: state.isLoading
+                          ? CircularProgressIndicator.adaptive(
+                              backgroundColor: Theme.of(context)
+                                  .progressIndicatorTheme
+                                  .color,
+                            )
+                          : const Text(LocaleKeys.general_button_send).tr(),
                     );
                   },
                 ),

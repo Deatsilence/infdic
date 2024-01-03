@@ -86,16 +86,13 @@ final class _VerifyCustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<OTPViewModel, OTPViewState, String>(
-      selector: (state) {
-        return state.otpCode;
-      },
+    return BlocBuilder<OTPViewModel, OTPViewState>(
       builder: (context, state) {
         return AuthCustomElevatedButton(
           onPressed: () async {
-            if (state.hasValue && state.length == 6) {
+            if (state.otpCode.hasValue && state.otpCode.length == 6) {
               await otpViewModel.verifyOTP(
-                userOtp: state,
+                userOtp: state.otpCode,
                 verificationId: widget.verificationId,
                 onExist: (user) {
                   otpViewModel.setUser(user: user);
@@ -150,7 +147,12 @@ final class _VerifyCustomElevatedButton extends StatelessWidget {
               );
             }
           },
-          child: const Text('Verify'),
+          child: state.isLoading
+              ? CircularProgressIndicator.adaptive(
+                  backgroundColor:
+                      Theme.of(context).progressIndicatorTheme.color,
+                )
+              : const Text(LocaleKeys.general_button_verify).tr(),
         );
       },
     );

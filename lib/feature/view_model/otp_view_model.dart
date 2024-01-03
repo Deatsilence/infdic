@@ -35,26 +35,27 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
     required void Function(User? user) onNotExist,
   }) async {
     changeLoading();
-    await FirebaseNetworkManager.instance.verifyCode(
-      verificationId: verificationId,
-      smsCode: userOtp,
-      onSuccess: (isSuccess, user) {
-        if (isSuccess != null && isSuccess) {
-          FirebaseNetworkManager.instance
-              .checkExistingUser(id: user!.uid)
-              .then((value) {
-            if (value) {
-              /// user exist
-              onExist(user);
-            } else {
-              /// New user
-              onNotExist(user);
+    await FirebaseNetworkManager.instance
+        .verifyCode(
+          verificationId: verificationId,
+          smsCode: userOtp,
+          onSuccess: (isSuccess, user) {
+            if (isSuccess != null && isSuccess) {
+              FirebaseNetworkManager.instance
+                  .checkExistingUser(id: user!.uid)
+                  .then((value) {
+                if (value) {
+                  /// user exist
+                  onExist(user);
+                } else {
+                  /// New user
+                  onNotExist(user);
+                }
+              });
             }
-          });
-        }
-      },
-    );
-    changeLoading();
+          },
+        )
+        .whenComplete(changeLoading);
   }
 
   /// [setStoreData] is the store data of OTP page
@@ -71,13 +72,15 @@ final class OTPViewModel extends BaseCubit<OTPViewState> {
         .whenComplete(changeLoading);
   }
 
+  /// [getUser] is the user of OTP page
   Future<InfDicUser> getUser({required String id}) async {
+    changeLoading();
     late InfDicUser infDicUser;
     await FirebaseNetworkManager.instance
         .getDataFromFirestore(id: id)
         .then((value) {
       infDicUser = InfDicUser.fromJson(value.data() ?? {});
-    });
+    }).whenComplete(changeLoading);
     return infDicUser;
   }
 }

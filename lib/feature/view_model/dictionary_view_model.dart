@@ -18,7 +18,10 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
 
   /// [getDataOfUserFromCache] is the data of user from cache
   Future<void> getDataOfUserFromCache() async {
-    await CacheManager.instance.getUserDataFromSP().then(
+    changeLoading();
+    await CacheManager.instance
+        .getUserDataFromSP()
+        .then(
           (value) => emit(
             state.copyWith(
               infDicUser: InfDicUser.fromJson(
@@ -26,19 +29,23 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
               ),
             ),
           ),
-        );
+        )
+        .whenComplete(changeLoading);
   }
 
   /// [getUser] is the user of dictionary page
   Future<void> getUser() async {
+    changeLoading();
     final user = FirebaseNetworkManager.instance.getCurrentUser();
     if (user != null) {
       late InfDicUser infDicUser;
       await FirebaseNetworkManager.instance
           .getDataFromFirestore(id: user.uid)
           .then((value) {
-        infDicUser = InfDicUser.fromJson(value.data() ?? {});
-      }).whenComplete(() => emit(state.copyWith(infDicUser: infDicUser)));
+            infDicUser = InfDicUser.fromJson(value.data() ?? {});
+          })
+          .whenComplete(() => emit(state.copyWith(infDicUser: infDicUser)))
+          .whenComplete(changeLoading);
     }
   }
 }

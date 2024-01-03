@@ -39,7 +39,6 @@ final class _DictionaryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // dictionaryViewModel.getDataOfUserFromCache();
     dictionaryViewModel.getUser();
     return BlocSelector<DictionaryViewModel, DictionaryViewState, InfDicUser?>(
       selector: (state) {

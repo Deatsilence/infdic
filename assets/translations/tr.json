@@ -24,7 +24,9 @@
       "login": "Giriş Yap",
       "signUp": "Kayıt ol",
       "forgot": "Şifremi Unuttum",
-      "continue": "Devam Et"
+      "continue": "Devam Et",
+      "verify": "Doğrula",
+      "send": "Gönder"
     },
     "text_form_field": {
       "search": "Ara",

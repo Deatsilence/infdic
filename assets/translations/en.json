@@ -24,7 +24,9 @@
       "login": "Sign In",
       "signUp": "Sign Up",
       "forgot": "I Forgotten Password",
-      "continue": "Continue"
+      "continue": "Continue",
+      "verify": "Verify",
+      "send": "Send"
     },
     "text_form_field": {
       "search": "Search",

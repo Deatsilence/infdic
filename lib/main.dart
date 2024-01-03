@@ -8,18 +8,10 @@ import 'package:infdic/product/init/theme/custom_dark_theme.dart';
 import 'package:infdic/product/init/theme/custom_light_theme.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/utility/constants/information_of_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 Future<void> main() async {
   await ApplicationInitialize().make();
-
-  final prefs = await SharedPreferences.getInstance();
-
-// Save an integer value to 'counter' key.
-  await prefs.setInt('counter', 10);
-  final counter = prefs.getInt('counter');
-  debugPrint('counter: $counter');
 
   runApp(ProductLocalization(child: const MyApp()));
 }

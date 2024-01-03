@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/phone_number_verification_view.dart';
 import 'package:infdic/feature/view_model/phone_number_view_model.dart';
+import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/utility/extension/custom_string_extension.dart';
 
@@ -28,8 +30,9 @@ mixin PhoneNumberVerificationViewMixin on State<PhoneNumberVerificationView> {
   TextEditingController get phoneNumberController => _phoneNumberController;
 
   /// [phoneNumberValidator] is the validator of phone number text form field
-  String? phoneNumberValidator(String? value) =>
-      (value.hasValue) ? null : 'Please enter your phone number';
+  String? phoneNumberValidator(String? value) => (value.hasValue)
+      ? null
+      : LocaleKeys.general_text_form_field_please_enter_a_phone_number.tr();
 
   @override
   void initState() {
