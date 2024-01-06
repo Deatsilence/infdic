@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infdic/product/init/cache/cache_manager.dart';
-import 'package:infdic/product/service/firebase_network_manager.dart';
+import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/product_state.dart';
 

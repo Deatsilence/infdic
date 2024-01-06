@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/otp_view_mixin.dart';
-import 'package:infdic/feature/view/auth/base_auth_view.dart';
+import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/feature/view_model/otp_view_model.dart';
 import 'package:infdic/product/init/cache/cache_manager.dart';
@@ -47,7 +47,7 @@ class _OTPViewState extends State<OTPView> with OTPViewMixin {
     debugPrint(widget.verificationId);
     return BlocProvider(
       create: (context) => otpViewModel,
-      child: BaseAuthView(
+      child: BaseView(
         onPageBuilder: (context, value) => SliverList(
           delegate: SliverChildListDelegate(
             [

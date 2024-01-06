@@ -30,7 +30,7 @@ final class InfDicUser with EquatableMixin {
   /// [uId] is the uId of home page
   final String? uId;
 
-  /// [created] is the created of home page
+  /// [createdAt] is the created of home page
   final DateTime? createdAt;
 
   /// [toJson] is the json of [InfDicUser]

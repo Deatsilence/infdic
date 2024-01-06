@@ -1,3 +1,3 @@
-export 'attributes.dart';
-export 'book.dart';
+export 'base/base_model.dart';
 export 'infdic_user.dart';
+export 'word.dart';

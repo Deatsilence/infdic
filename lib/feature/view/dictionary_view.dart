@@ -1,11 +1,16 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:common/common.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/dictionary_view_mixin.dart';
+import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view_model/dictionary_view_model.dart';
+import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
-import 'package:infdic/product/view_model/product_view_model.dart';
+import 'package:infdic/product/widget/custom_text_form_field.dart';
+import 'package:sizer/sizer.dart';
 
 /// [DictionaryView] is the view of dictionary page
 @RoutePage()
@@ -23,9 +28,16 @@ class _DictionaryViewState extends State<DictionaryView>
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => dictionaryViewModel,
-      child: Scaffold(
-        body: Center(
-          child: _DictionaryBody(dictionaryViewModel: dictionaryViewModel),
+      child: BaseView(
+        onPageBuilder: (context, value) => SliverList(
+          delegate: SliverChildListDelegate(
+            [
+              _DictionaryBody(
+                dictionaryViewModel: dictionaryViewModel,
+                searchController: searchController,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -33,37 +45,77 @@ class _DictionaryViewState extends State<DictionaryView>
 }
 
 final class _DictionaryBody extends StatelessWidget {
-  const _DictionaryBody({required this.dictionaryViewModel});
+  const _DictionaryBody({
+    required this.dictionaryViewModel,
+    required this.searchController,
+  });
+
+  final DictionaryViewModel dictionaryViewModel;
+  final TextEditingController searchController;
+
+  @override
+  Widget build(BuildContext context) {
+    dictionaryViewModel.getUser();
+    return BlocBuilder<DictionaryViewModel, DictionaryViewState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextFormField(
+              controller: searchController,
+              prefixIcon: const Icon(Icons.search_rounded),
+              hintText: LocaleKeys.general_text_form_field_search.tr(),
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.search,
+              onFieldSubmitted: (value) => dictionaryViewModel
+                  .searchAWord(value)
+                  .whenComplete(() => debugPrint(state.word?.wordTr)),
+            ),
+            if (state.isLoading)
+              const CircularProgressIndicator.adaptive()
+            else
+              state.word != null
+                  ? _DetailOfWorldCard(dictionaryViewModel: dictionaryViewModel)
+                  : const Text('Üzgünüz, aradığınız kelime bulunamadı.'),
+          ],
+        );
+      },
+    );
+  }
+}
+
+final class _DetailOfWorldCard extends StatelessWidget {
+  const _DetailOfWorldCard({required this.dictionaryViewModel});
 
   final DictionaryViewModel dictionaryViewModel;
 
   @override
   Widget build(BuildContext context) {
-    dictionaryViewModel.getUser();
-    return BlocSelector<DictionaryViewModel, DictionaryViewState, InfDicUser?>(
-      selector: (state) {
-        return state.infDicUser;
-      },
-      builder: (context, state) {
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(state?.email ?? ''),
-            // Text(state!.createdAt.toString()),
-            Text(state?.uId ?? ''),
-            Text(state?.phoneNumber ?? ''),
-            InkWell(
-              onTap: () async =>
-                  context.read<ProductViewModel>().userSignOut().whenComplete(
-                () {
-                  context.router.popUntil((route) => route.isFirst);
-                },
-              ),
-              child: const Icon(Icons.logout_outlined),
-            ),
-          ],
-        );
-      },
+    return SizedBox(
+      height: 50.h,
+      width: double.infinity,
+      child: Card(
+        color: Theme.of(context).cardTheme.color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusManager.moreBorderRadius,
+        ),
+        elevation: 5,
+        child: BlocSelector<DictionaryViewModel, DictionaryViewState, Word?>(
+          selector: (state) {
+            return state.word;
+          },
+          builder: (context, state) {
+            return Column(
+              children: [
+                Text(
+                  state?.wordEn ?? '',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/phone_number_verification_view_mixin.dart';
-import 'package:infdic/feature/view/auth/base_auth_view.dart';
+import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/feature/view_model/phone_number_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
@@ -42,7 +42,7 @@ class _PhoneNumberVerificationViewState
       create: (context) => phoneNumberVerificationViewModel,
       child: Form(
         key: phoneNumberFormKey,
-        child: BaseAuthView(
+        child: BaseView(
           onPageBuilder: (context, value) => SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -76,7 +76,16 @@ class _PhoneNumberVerificationViewState
                   builder: (context, state) {
                     return AuthCustomElevatedButton(
                       onPressed: () {
-                        onPhoneNumberPressed(state: state.selectedCountry);
+                        onPhoneNumberPressed(
+                          state: state.selectedCountry,
+                          verificationFailed: (ex) {
+                            debugPrint('onfail');
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: ${ex.message}')),
+                            );
+                          },
+                          codeAutoRetrievalTimeout: (value) {},
+                        );
                       },
                       height: 8.h,
                       child: state.isLoading

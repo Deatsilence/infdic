@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:gen/gen.dart';
 import 'package:infdic/product/init/cache/cache_manager.dart';
-import 'package:infdic/product/service/firebase_network_manager.dart';
+import 'package:infdic/product/service/dictionary_service.dart';
+import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 
@@ -47,5 +47,18 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
           .whenComplete(() => emit(state.copyWith(infDicUser: infDicUser)))
           .whenComplete(changeLoading);
     }
+  }
+
+  /// [searchAWord] is the search a word of dictionary page
+  Future<void> searchAWord(
+    String word,
+  ) async {
+    changeLoading();
+    await DictionaryService.instance
+        .dioGet<Word>(word, Word())
+        .then(
+          (value) => value is Word ? emit(state.copyWith(word: value)) : null,
+        )
+        .whenComplete(changeLoading);
   }
 }

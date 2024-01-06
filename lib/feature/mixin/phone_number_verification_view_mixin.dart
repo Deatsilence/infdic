@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/feature/view/auth/phone_number_verification_view.dart';
 import 'package:infdic/feature/view_model/phone_number_view_model.dart';
@@ -43,7 +44,11 @@ mixin PhoneNumberVerificationViewMixin on State<PhoneNumberVerificationView> {
   }
 
   /// [onPhoneNumberPressed] is the action of phone number button
-  void onPhoneNumberPressed({required Country state}) {
+  void onPhoneNumberPressed({
+    required Country state,
+    required void Function(FirebaseAuthException ex) verificationFailed,
+    required void Function(String value) codeAutoRetrievalTimeout,
+  }) {
     if (phoneNumberFormKey.currentState != null &&
         phoneNumberFormKey.currentState!.validate()) {
       phoneNumberFormKey.currentState!.save();
@@ -63,12 +68,8 @@ mixin PhoneNumberVerificationViewMixin on State<PhoneNumberVerificationView> {
             ),
           );
         },
-        verificationFailed: (p0) {
-          debugPrint(p0.message);
-        },
-        codeAutoRetrievalTimeout: (p0) {
-          debugPrint(p0);
-        },
+        verificationFailed: verificationFailed,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
     }
   }

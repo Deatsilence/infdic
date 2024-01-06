@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/signup_view_mixin.dart';
-import 'package:infdic/feature/view/auth/base_auth_view.dart';
+import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view/widget/auth_custom_outlined_button.dart';
 import 'package:infdic/feature/view/widget/index.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
@@ -32,7 +32,7 @@ class _SignUpViewState extends State<SignUpView> with SignUpViewMixin {
       create: (context) => signUpViewModel,
       child: Form(
         key: signUpFormKey,
-        child: BaseAuthView(
+        child: BaseView(
           onPageBuilder: (context, value) => SliverList(
             delegate: SliverChildListDelegate(
               [

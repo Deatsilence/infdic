@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:gen/gen.dart';
-import 'package:infdic/product/service/firebase_network_manager.dart';
+import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/otp_view_state.dart';
 import 'package:infdic/product/utility/extension/custom_string_extension.dart';
