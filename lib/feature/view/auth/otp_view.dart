@@ -14,7 +14,7 @@ import 'package:infdic/product/init/cache/cache_manager.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 import 'package:infdic/product/state/otp_view_state.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 import 'package:infdic/product/utility/extension/list_gutter_extension.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:pinput/pinput.dart';

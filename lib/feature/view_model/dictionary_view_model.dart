@@ -1,15 +1,18 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
 import 'package:infdic/product/init/cache/cache_manager.dart';
 import 'package:infdic/product/service/dictionary_service.dart';
 import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
+import 'package:infdic/product/utility/extension/make_safe_custom_extension.dart';
 
 /// [DictionaryViewModel] is the view model of home page
 final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
   /// Constructor
-  DictionaryViewModel() : super(const DictionaryViewState(isLoading: false));
+  DictionaryViewModel()
+      : super(const DictionaryViewState(isLoading: false, words: []));
 
   /// [changeLoading] is the loading state of home page
   void changeLoading() {
@@ -54,11 +57,21 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
     String word,
   ) async {
     changeLoading();
-    await DictionaryService.instance
-        .dioGet<Word>(word, Word())
-        .then(
-          (value) => value is Word ? emit(state.copyWith(word: value)) : null,
-        )
-        .whenComplete(changeLoading);
+    await DictionaryService.instance.dioGet<Word>(word, Word()).then((value) {
+      debugPrint('value: $value');
+
+      if (value is List<Word>) {
+        final safeWord = value.makeSafeCustom(
+          (value) =>
+              value?.id != null &&
+              value?.category != null &&
+              value?.type != null &&
+              value?.wordEn != null &&
+              value?.wordTr != null,
+        );
+        emit(state.copyWith(words: safeWord));
+      }
+      return;
+    }).whenComplete(changeLoading);
   }
 }

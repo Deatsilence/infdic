@@ -7,7 +7,7 @@ import 'package:infdic/feature/view/auth/phone_number_verification_view.dart';
 import 'package:infdic/feature/view_model/phone_number_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/navigation/app_router.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 
 /// [PhoneNumberVerificationViewMixin] is the view model of home page
 mixin PhoneNumberVerificationViewMixin on State<PhoneNumberVerificationView> {

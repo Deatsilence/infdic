@@ -7,7 +7,7 @@ final class DictionaryViewState extends Equatable {
   const DictionaryViewState({
     required this.isLoading,
     this.infDicUser,
-    this.word,
+    this.words,
   });
 
   /// [isLoading] is the loading state of dictionary page
@@ -16,22 +16,22 @@ final class DictionaryViewState extends Equatable {
   /// [infDicUser] is the user of dictionary page
   final InfDicUser? infDicUser;
 
-  /// [word] is the word of dictionary page
-  final Word? word;
+  /// [words] is the words of dictionary page
+  final List<Word?>? words;
 
   @override
-  List<Object?> get props => [isLoading, infDicUser, word];
+  List<Object?> get props => [isLoading, infDicUser, words];
 
   /// [copyWith] is the copy of [DictionaryViewState]
   DictionaryViewState copyWith({
     bool? isLoading,
     InfDicUser? infDicUser,
-    Word? word,
+    List<Word?>? words,
   }) {
     return DictionaryViewState(
       isLoading: isLoading ?? this.isLoading,
       infDicUser: infDicUser ?? this.infDicUser,
-      word: word ?? this.word,
+      words: words ?? this.words,
     );
   }
 }

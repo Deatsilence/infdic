@@ -3,7 +3,7 @@ import 'package:gen/gen.dart';
 import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/otp_view_state.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 
 /// [OTPViewModel] is the view model of home page
 final class OTPViewModel extends BaseCubit<OTPViewState> {

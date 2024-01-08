@@ -29,27 +29,29 @@ final class DictionaryService {
   Future<dynamic> dioGet<T extends BaseModel<T>>(String word, T model) async {
     try {
       final response = await _dio.get<dynamic>('$_baseUrl/dictionary/$word');
-      debugPrint('response: ${response.data}');
+
       switch (response.statusCode) {
         case HttpStatus.ok:
           final responseBody = response.data;
           if (responseBody is List) {
-            return responseBody.map((e) {
-              if (e is Map<String, dynamic>) {
-                return model.fromJson(e);
-              } else {
-                throw Exception('Invalid element type');
-              }
-            }).toList();
-          } else if (responseBody is Map<String, dynamic>) {
-            return model.fromJson(responseBody);
+            return responseBody
+                .map(
+                  (e) => model.fromJson(
+                    e as Map<String, dynamic>,
+                  ),
+                )
+                .toList();
+          } else if (responseBody is Map) {
+            return model.fromJson(
+              responseBody.cast<String, dynamic>(),
+            ); //! compute will come here
           }
           return responseBody;
-        // Add more status code handling as necessary
+        // case HttpStatus.badRequest
         default:
       }
     } catch (e) {
-      Logger();
+      debugPrint(e.toString());
     }
   }
 }

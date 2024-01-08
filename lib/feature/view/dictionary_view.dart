@@ -9,6 +9,7 @@ import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view_model/dictionary_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:sizer/sizer.dart';
 
@@ -67,16 +68,14 @@ final class _DictionaryBody extends StatelessWidget {
               hintText: LocaleKeys.general_text_form_field_search.tr(),
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.search,
-              onFieldSubmitted: (value) => dictionaryViewModel
-                  .searchAWord(value)
-                  .whenComplete(() => debugPrint(state.word?.wordTr)),
+              onFieldSubmitted: dictionaryViewModel.searchAWord,
             ),
             if (state.isLoading)
               const CircularProgressIndicator.adaptive()
             else
-              state.word != null
+              state.words.hasValue
                   ? _DetailOfWorldCard(dictionaryViewModel: dictionaryViewModel)
-                  : const Text('Üzgünüz, aradığınız kelime bulunamadı.'),
+                  : const Text(LocaleKeys.general_can_not_find_the_word).tr(),
           ],
         );
       },
@@ -100,18 +99,29 @@ final class _DetailOfWorldCard extends StatelessWidget {
           borderRadius: BorderRadiusManager.moreBorderRadius,
         ),
         elevation: 5,
-        child: BlocSelector<DictionaryViewModel, DictionaryViewState, Word?>(
+        child:
+            BlocSelector<DictionaryViewModel, DictionaryViewState, List<Word?>>(
           selector: (state) {
-            return state.word;
+            return state.words ?? [];
           },
           builder: (context, state) {
-            return Column(
-              children: [
-                Text(
-                  state?.wordEn ?? '',
-                  style: Theme.of(context).textTheme.titleLarge,
+            return ListView.builder(
+              itemCount: state.length,
+              itemBuilder: (context, index) => SizedBox(
+                child: ColoredBox(
+                  color: index.isEven
+                      ? Theme.of(context).colorScheme.background
+                      : Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(state[index]?.wordTr ?? ''),
+                      Text(state[index]?.type ?? ''),
+                      Text(state[index]?.category ?? ''),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             );
           },
         ),

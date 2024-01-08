@@ -31,6 +31,7 @@
     "text_form_field": {
       "search": "İngilizce bir kelime ara",
       "please_enter_a_phone_number": "Lütfen telefon numarası giriniz"
-    }
+    },
+    "can_not_find_the_word": "Üzgünüz, aradığınız kelime bulunamadı"
   }
 }

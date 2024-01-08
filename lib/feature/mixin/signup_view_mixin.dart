@@ -5,7 +5,7 @@ import 'package:infdic/feature/view/auth/signup_view.dart';
 import 'package:infdic/feature/view_model/signup_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/navigation/app_router.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 
 /// [SignUpViewMixin] is logics of signup view
 mixin SignUpViewMixin on State<SignUpView> {

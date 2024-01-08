@@ -31,6 +31,7 @@
     "text_form_field": {
       "search": "Search an english word",
       "please_enter_a_phone_number": "Please enter a phone number"
-    }
+    },
+    "can_not_find_the_word": "Can not find the word"
   }
 }
