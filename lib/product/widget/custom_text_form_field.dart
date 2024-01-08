@@ -13,7 +13,6 @@ final class CustomTextFormField extends StatefulWidget {
     this.validator,
     this.onSaved,
     this.prefixIcon,
-    this.suffixIcon,
     this.controller,
     this.inputFormatters,
     this.keyboardType,
@@ -37,7 +36,6 @@ final class CustomTextFormField extends StatefulWidget {
   final void Function(String value)? onFieldSubmitted;
   final void Function(String value)? onChanged;
   final Widget? prefixIcon;
-  final Widget? suffixIcon;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
@@ -56,13 +54,38 @@ final class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  bool _isClearButtonVisible = false;
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('CustomTextFormField build');
     return TextFormField(
-      onChanged: widget.onChanged,
+      onChanged: (value) {
+        if (value.length == 1) {
+          setState(() {
+            _isClearButtonVisible = true;
+          });
+        } else if (value.isEmpty) {
+          setState(() {
+            _isClearButtonVisible = false;
+          });
+        }
+
+        widget.onChanged?.call(value);
+      },
       decoration: CustomInputDecoration(
         prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon,
+        suffixIcon: _isClearButtonVisible
+            ? InkWell(
+                onTap: () {
+                  setState(() {
+                    _isClearButtonVisible = false;
+                  });
+                  widget.controller?.clear();
+                },
+                child: const Icon(Icons.clear_outlined),
+              )
+            : null,
         labelText: widget.labelText,
         hintText: widget.hintText,
         borderColor:
