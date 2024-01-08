@@ -5,15 +5,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
-import 'package:infdic/product/utility/extension/padding_extension.dart';
-import 'package:sizer/sizer.dart';
 import 'package:infdic/feature/mixin/dictionary_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view_model/dictionary_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 import 'package:infdic/product/utility/extension/has_value_extension.dart';
+import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
+import 'package:sizer/sizer.dart';
 
 part '../part_of_view/part_of_dictionary_view.dart';
 
