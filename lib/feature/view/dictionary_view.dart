@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_route/auto_route.dart';
 import 'package:common/common.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gen/gen.dart';
+import 'package:infdic/product/utility/extension/padding_extension.dart';
+import 'package:sizer/sizer.dart';
 import 'package:infdic/feature/mixin/dictionary_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view_model/dictionary_view_model.dart';
@@ -11,7 +14,8 @@ import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 import 'package:infdic/product/utility/extension/has_value_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
-import 'package:sizer/sizer.dart';
+
+part '../part_of_view/part_of_dictionary_view.dart';
 
 /// [DictionaryView] is the view of dictionary page
 @RoutePage()
@@ -56,7 +60,6 @@ final class _DictionaryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dictionaryViewModel.getUser();
     return BlocBuilder<DictionaryViewModel, DictionaryViewState>(
       builder: (context, state) {
         return Column(
@@ -91,7 +94,7 @@ final class _DetailOfWorldCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.h,
+      height: 80.h,
       width: double.infinity,
       child: Card(
         color: Theme.of(context).cardTheme.color,
@@ -105,23 +108,25 @@ final class _DetailOfWorldCard extends StatelessWidget {
             return state.words ?? [];
           },
           builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.length,
-              itemBuilder: (context, index) => SizedBox(
-                child: ColoredBox(
-                  color: index.isEven
-                      ? Theme.of(context).colorScheme.background
-                      : Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(state[index]?.wordTr ?? ''),
-                      Text(state[index]?.type ?? ''),
-                      Text(state[index]?.category ?? ''),
-                    ],
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: _TitleOfTheWord(
+                    words: state,
+                  ).onlyPadding(top: 2.h, bottom: 2.h),
+                ),
+                SliverList.builder(
+                  itemCount: state.length,
+                  itemBuilder: (context, index) => SizedBox(
+                    child: ColoredBox(
+                      color: index.isEven
+                          ? Theme.of(context).colorScheme.background
+                          : Colors.transparent,
+                      child: _RowOfAmean(words: state, index: index),
+                    ),
                   ),
                 ),
-              ),
+              ],
             );
           },
         ),

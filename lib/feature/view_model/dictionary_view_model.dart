@@ -66,8 +66,8 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
               value?.id != null &&
               value?.category != null &&
               value?.type != null &&
-              value?.wordEn != null &&
-              value?.wordTr != null,
+              value?.word_en != null &&
+              value?.word_tr != null,
         );
         emit(state.copyWith(words: safeWord));
       }

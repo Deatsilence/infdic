@@ -20,5 +20,6 @@ mixin DictionaryViewMixin on State<DictionaryView> {
     super.initState();
     _dictionaryViewModel = DictionaryViewModel();
     _searchController = TextEditingController();
+    dictionaryViewModel.getUser();
   }
 }

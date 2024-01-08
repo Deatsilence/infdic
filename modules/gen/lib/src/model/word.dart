@@ -13,8 +13,8 @@ final class Word extends BaseModel<Word> with EquatableMixin {
   /// Constructor
   Word({
     this.id,
-    this.wordEn,
-    this.wordTr,
+    this.word_en,
+    this.word_tr,
     this.type,
     this.category,
   });
@@ -23,10 +23,10 @@ final class Word extends BaseModel<Word> with EquatableMixin {
   final int? id;
 
   /// [wordEn] is the english word of searched word
-  final String? wordEn;
+  final String? word_en;
 
   /// [wordTr] is the turkish word of searched word
-  final String? wordTr;
+  final String? word_tr;
 
   /// [type] is the type of searched word
   final String? type;
@@ -43,7 +43,7 @@ final class Word extends BaseModel<Word> with EquatableMixin {
   Map<String, dynamic> toJson() => _$WordToJson(this);
 
   @override
-  List<Object?> get props => [id, wordEn, wordTr, type, category];
+  List<Object?> get props => [id, word_en, word_tr, type, category];
 
   /// [copyWith] is the copy of [Word]
   Word copyWith({
@@ -55,8 +55,8 @@ final class Word extends BaseModel<Word> with EquatableMixin {
   }) {
     return Word(
       id: id ?? this.id,
-      wordEn: wordEn ?? this.wordEn,
-      wordTr: wordTr ?? this.wordTr,
+      word_en: wordEn ?? word_en,
+      word_tr: wordTr ?? word_tr,
       type: type ?? this.type,
       category: category ?? this.category,
     );
