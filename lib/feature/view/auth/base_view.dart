@@ -4,13 +4,13 @@ import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 
-final class BaseAuthView<T> extends StatefulWidget {
+final class BaseView<T> extends StatefulWidget {
   final Widget Function(BuildContext context, T value) onPageBuilder;
   final T? viewModel;
   final Function(T model)? onModelReady;
   final VoidCallback? onDispose;
 
-  const BaseAuthView({
+  const BaseView({
     required this.onPageBuilder,
     this.onDispose,
     this.viewModel,
@@ -19,10 +19,10 @@ final class BaseAuthView<T> extends StatefulWidget {
   });
 
   @override
-  State<BaseAuthView> createState() => _BaseAuthViewState();
+  State<BaseView> createState() => _BaseViewState();
 }
 
-class _BaseAuthViewState extends State<BaseAuthView> {
+class _BaseViewState extends State<BaseView> {
   @override
   void initState() {
     super.initState();
@@ -48,7 +48,9 @@ class _BaseAuthViewState extends State<BaseAuthView> {
           child: CustomScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             slivers: [
-              if (context.routeData.name == SignUpRoute.name)
+              if (context.routeData.name == SignUpRoute.name ||
+                  context.routeData.name == PhoneNumberVerificationRoute.name ||
+                  context.routeData.name == OTPRoute.name)
                 const SliverAppBar(),
               SliverPadding(
                 padding: PaddingManager

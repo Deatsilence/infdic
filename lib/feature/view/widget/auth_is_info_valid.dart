@@ -5,7 +5,7 @@ import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:sizer/sizer.dart';
 
-class AuthIsInfoValid extends StatefulWidget {
+final class AuthIsInfoValid extends StatefulWidget {
   const AuthIsInfoValid({
     required this.controller,
     super.key,

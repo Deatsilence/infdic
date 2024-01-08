@@ -8,6 +8,7 @@ final class CustomTextFormField extends StatefulWidget {
   /// Constructor
   const CustomTextFormField({
     super.key,
+    this.hintText,
     this.labelText,
     this.validator,
     this.onSaved,
@@ -23,15 +24,18 @@ final class CustomTextFormField extends StatefulWidget {
     this.textInputAction,
     this.focusNode,
     this.onFieldSubmitted,
+    this.onChanged,
     this.autocorrect = false,
     this.obscureText = false,
     this.obscuringCharacter = '•',
   });
 
   final String? labelText;
+  final String? hintText;
   final String? Function(String?)? validator;
-  final void Function(String?)? onSaved;
-  final void Function(String)? onFieldSubmitted;
+  final void Function(String? value)? onSaved;
+  final void Function(String value)? onFieldSubmitted;
+  final void Function(String value)? onChanged;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextEditingController? controller;
@@ -55,10 +59,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       decoration: CustomInputDecoration(
         prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon,
         labelText: widget.labelText,
+        hintText: widget.hintText,
         borderColor:
             widget.borderColor ?? Theme.of(context).colorScheme.primary,
         enableBorderColor:

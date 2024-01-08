@@ -1,7 +1,7 @@
 import 'package:common/common.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
-import 'package:infdic/product/utility/extension/custom_string_extension.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 
 /// [Validation] is a class that contains all validators
 final class Validation {

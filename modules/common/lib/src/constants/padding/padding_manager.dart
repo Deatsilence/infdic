@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 final class PaddingManager {
   // TODO: All Paddings
 
+  /// [paddingManagerLessPaddingAll] is padding for normal as `10`
+  static const EdgeInsets paddingManagerLessPaddingAll = EdgeInsets.all(8);
+
   /// [paddingManagerNormalPaddingAll] is padding for normal as `10`
   static const EdgeInsets paddingManagerNormalPaddingAll = EdgeInsets.all(10);
 

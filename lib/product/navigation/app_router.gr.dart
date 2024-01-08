@@ -15,16 +15,39 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    DictionaryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DictionaryView(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const HomeView(),
       );
     },
-    LoginRoute.name: (routeData) {
+    OTPRoute.name: (routeData) {
+      final args = routeData.argsAs<OTPRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const LoginView(),
+        child: OTPView(
+          verificationId: args.verificationId,
+          email: args.email,
+          phoneNumber: args.phoneNumber,
+          key: args.key,
+        ),
+      );
+    },
+    PhoneNumberVerificationRoute.name: (routeData) {
+      final args = routeData.argsAs<PhoneNumberVerificationRouteArgs>(
+          orElse: () => const PhoneNumberVerificationRouteArgs());
+      return AutoRoutePage<bool?>(
+        routeData: routeData,
+        child: PhoneNumberVerificationView(
+          email: args.email,
+          key: args.key,
+        ),
       );
     },
     SignUpRoute.name: (routeData) {
@@ -34,6 +57,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [DictionaryView]
+class DictionaryRoute extends PageRouteInfo<void> {
+  const DictionaryRoute({List<PageRouteInfo>? children})
+      : super(
+          DictionaryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DictionaryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -51,17 +88,89 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [LoginView]
-class LoginRoute extends PageRouteInfo<void> {
-  const LoginRoute({List<PageRouteInfo>? children})
-      : super(
-          LoginRoute.name,
+/// [OTPView]
+class OTPRoute extends PageRouteInfo<OTPRouteArgs> {
+  OTPRoute({
+    required String verificationId,
+    required String email,
+    required String phoneNumber,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          OTPRoute.name,
+          args: OTPRouteArgs(
+            verificationId: verificationId,
+            email: email,
+            phoneNumber: phoneNumber,
+            key: key,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'LoginRoute';
+  static const String name = 'OTPRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<OTPRouteArgs> page = PageInfo<OTPRouteArgs>(name);
+}
+
+class OTPRouteArgs {
+  const OTPRouteArgs({
+    required this.verificationId,
+    required this.email,
+    required this.phoneNumber,
+    this.key,
+  });
+
+  final String verificationId;
+
+  final String email;
+
+  final String phoneNumber;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'OTPRouteArgs{verificationId: $verificationId, email: $email, phoneNumber: $phoneNumber, key: $key}';
+  }
+}
+
+/// generated route for
+/// [PhoneNumberVerificationView]
+class PhoneNumberVerificationRoute
+    extends PageRouteInfo<PhoneNumberVerificationRouteArgs> {
+  PhoneNumberVerificationRoute({
+    String? email,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          PhoneNumberVerificationRoute.name,
+          args: PhoneNumberVerificationRouteArgs(
+            email: email,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'PhoneNumberVerificationRoute';
+
+  static const PageInfo<PhoneNumberVerificationRouteArgs> page =
+      PageInfo<PhoneNumberVerificationRouteArgs>(name);
+}
+
+class PhoneNumberVerificationRouteArgs {
+  const PhoneNumberVerificationRouteArgs({
+    this.email,
+    this.key,
+  });
+
+  final String? email;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'PhoneNumberVerificationRouteArgs{email: $email, key: $key}';
+  }
 }
 
 /// generated route for

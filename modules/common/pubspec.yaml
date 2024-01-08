@@ -11,6 +11,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Utility
+  country_picker: ^2.0.23
+  sizer: ^2.0.15
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

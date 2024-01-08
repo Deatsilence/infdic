@@ -16,6 +16,7 @@ final class CustomInputDecoration extends InputDecoration {
     required this.enableBorderColor,
     required this.deActiveBorderColor,
     required this.errorBorderColor,
+    super.hintText,
     super.labelText,
     super.prefixIcon,
     super.suffixIcon,
