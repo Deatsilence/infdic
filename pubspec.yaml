@@ -43,6 +43,7 @@ dependencies:
   gap: ^3.0.1
   flutter_pw_validator: ^1.6.0
   country_picker: ^2.0.23
+  audioplayers: ^5.2.1
 
   # Navigation
   auto_route: ^7.8.4

@@ -6,6 +6,7 @@ import 'package:infdic/product/service/dictionary_service.dart';
 import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
+import 'package:infdic/product/utility/constants/enums/domain_paths.dart';
 import 'package:infdic/product/utility/extension/make_safe_custom_extension.dart';
 
 /// [DictionaryViewModel] is the view model of home page
@@ -57,7 +58,13 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
     String word,
   ) async {
     changeLoading();
-    await DictionaryService.instance.dioGet<Word>(word, Word()).then((value) {
+    await DictionaryService.instance
+        .dioGet<Word>(
+      domain: DomainPaths.dictionary.path,
+      value: word,
+      model: Word(),
+    )
+        .then((value) {
       debugPrint('value: $value');
 
       if (value is List<Word>) {
@@ -71,7 +78,6 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
         );
         emit(state.copyWith(words: safeWord));
       }
-      return;
     }).whenComplete(changeLoading);
   }
 }

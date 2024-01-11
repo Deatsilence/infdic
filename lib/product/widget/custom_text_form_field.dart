@@ -58,7 +58,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('CustomTextFormField build');
     return TextFormField(
       onChanged: (value) {
         if (value.length == 1) {

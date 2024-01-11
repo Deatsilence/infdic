@@ -1,3 +1,3 @@
 export 'base/base_model.dart';
-export 'infdic_user.dart';
-export 'word.dart';
+export 'main_model/index.dart';
+export 'sub_model/index.dart';

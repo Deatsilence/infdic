@@ -1,22 +1,51 @@
 part of '../view/dictionary_view.dart';
 
-final class _TitleOfTheWord extends StatelessWidget {
+final class _TitleOfTheWord extends StatefulWidget {
   const _TitleOfTheWord({required this.words});
 
   final List<Word?> words;
+
+  @override
+  State<_TitleOfTheWord> createState() => _TitleOfTheWordState();
+}
+
+class _TitleOfTheWordState extends State<_TitleOfTheWord> {
+  final player = AudioPlayer();
+  bool _isPlaying = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    player
+      ..setReleaseMode(ReleaseMode.release)
+      ..setSourceUrl(
+          'https://api.dictionaryapi.dev/media/pronunciations/en/pilot-au.mp3');
+
+    player.onPlayerStateChanged.listen((event) {
+      setState(() {
+        _isPlaying = !(event == PlayerState.completed);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Icon(
-          Icons.volume_up_outlined,
-          size: 24.sp,
-          color: Theme.of(context).colorScheme.primary,
+        InkWell(
+          onTap: () async {
+            _isPlaying ? await player.resume() : await player.pause();
+          },
+          child: Icon(
+            Icons.volume_up_outlined,
+            size: 24.sp,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
         Text(
-          words.first?.word_en ?? '',
+          widget.words.first?.word_en ?? '',
           style: Theme.of(context)
               .textTheme
               .titleLarge
