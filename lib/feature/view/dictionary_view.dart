@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:common/common.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,8 +12,11 @@ import 'package:infdic/feature/view_model/dictionary_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 import 'package:infdic/product/utility/extension/has_value_extension.dart';
+import 'package:infdic/product/utility/extension/padding_extension.dart';
 import 'package:infdic/product/widget/custom_text_form_field.dart';
 import 'package:sizer/sizer.dart';
+
+part '../part_of_view/part_of_dictionary_view.dart';
 
 /// [DictionaryView] is the view of dictionary page
 @RoutePage()
@@ -27,6 +32,7 @@ class _DictionaryViewState extends State<DictionaryView>
     with DictionaryViewMixin {
   @override
   Widget build(BuildContext context) {
+    debugPrint('DictionaryView build');
     return BlocProvider(
       create: (context) => dictionaryViewModel,
       child: BaseView(
@@ -56,7 +62,6 @@ final class _DictionaryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dictionaryViewModel.getUser();
     return BlocBuilder<DictionaryViewModel, DictionaryViewState>(
       builder: (context, state) {
         return Column(
@@ -73,8 +78,12 @@ final class _DictionaryBody extends StatelessWidget {
             if (state.isLoading)
               const CircularProgressIndicator.adaptive()
             else
-              state.words.hasValue
-                  ? _DetailOfWorldCard(dictionaryViewModel: dictionaryViewModel)
+              state.words.hasValue && state.wordDetails.hasValue
+                  ? _DetailOfWorldCard(
+                      dictionaryViewModel: dictionaryViewModel,
+                      words: state.words ?? [],
+                      wordDetails: state.wordDetails ?? [],
+                    )
                   : const Text(LocaleKeys.general_can_not_find_the_word).tr(),
           ],
         );
@@ -84,14 +93,20 @@ final class _DictionaryBody extends StatelessWidget {
 }
 
 final class _DetailOfWorldCard extends StatelessWidget {
-  const _DetailOfWorldCard({required this.dictionaryViewModel});
+  const _DetailOfWorldCard({
+    required this.dictionaryViewModel,
+    required this.words,
+    required this.wordDetails,
+  });
 
   final DictionaryViewModel dictionaryViewModel;
+  final List<Word?> words;
+  final List<WordDetail?> wordDetails;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50.h,
+      height: 80.h,
       width: double.infinity,
       child: Card(
         color: Theme.of(context).cardTheme.color,
@@ -99,31 +114,27 @@ final class _DetailOfWorldCard extends StatelessWidget {
           borderRadius: BorderRadiusManager.moreBorderRadius,
         ),
         elevation: 5,
-        child:
-            BlocSelector<DictionaryViewModel, DictionaryViewState, List<Word?>>(
-          selector: (state) {
-            return state.words ?? [];
-          },
-          builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.length,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: _TitleOfTheWord(
+                dictionaryViewModel: dictionaryViewModel,
+                words: words,
+                audioOfTheWord: wordDetails.first?.phonetics?.first.audio ?? '',
+              ).onlyPadding(top: 2.h, bottom: 2.h),
+            ),
+            SliverList.builder(
+              itemCount: words.length,
               itemBuilder: (context, index) => SizedBox(
                 child: ColoredBox(
                   color: index.isEven
                       ? Theme.of(context).colorScheme.background
                       : Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(state[index]?.wordTr ?? ''),
-                      Text(state[index]?.type ?? ''),
-                      Text(state[index]?.category ?? ''),
-                    ],
-                  ),
+                  child: _RowOfAmean(words: words, index: index),
                 ),
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

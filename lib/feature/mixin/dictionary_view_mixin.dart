@@ -20,5 +20,12 @@ mixin DictionaryViewMixin on State<DictionaryView> {
     super.initState();
     _dictionaryViewModel = DictionaryViewModel();
     _searchController = TextEditingController();
+    dictionaryViewModel.getUser();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 }

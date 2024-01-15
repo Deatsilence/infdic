@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
-import 'package:logger/logger.dart';
 
 /// [DictionaryService] for general dictionary
 final class DictionaryService {
@@ -26,14 +25,19 @@ final class DictionaryService {
   late Dio _dio;
 
   /// [dioGet] is the get method generic for [BaseModel]
-  Future<dynamic> dioGet<T extends BaseModel<T>>(String word, T model) async {
+  Future<dynamic> dioGet<T extends BaseModel<T>>({
+    required String domain,
+    required String value,
+    required T model,
+  }) async {
     try {
-      final response = await _dio.get<dynamic>('$_baseUrl/dictionary/$word');
+      final response = await _dio.get<dynamic>('$_baseUrl$domain/$value');
 
       switch (response.statusCode) {
         case HttpStatus.ok:
           final responseBody = response.data;
           if (responseBody is List) {
+            debugPrint('responseBody: $responseBody');
             return responseBody
                 .map(
                   (e) => model.fromJson(
@@ -49,6 +53,7 @@ final class DictionaryService {
           return responseBody;
         // case HttpStatus.badRequest
         default:
+          return null;
       }
     } catch (e) {
       debugPrint(e.toString());
