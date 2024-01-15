@@ -32,6 +32,7 @@ class _DictionaryViewState extends State<DictionaryView>
     with DictionaryViewMixin {
   @override
   Widget build(BuildContext context) {
+    debugPrint('DictionaryView build');
     return BlocProvider(
       create: (context) => dictionaryViewModel,
       child: BaseView(
@@ -77,8 +78,12 @@ final class _DictionaryBody extends StatelessWidget {
             if (state.isLoading)
               const CircularProgressIndicator.adaptive()
             else
-              state.words.hasValue
-                  ? _DetailOfWorldCard(dictionaryViewModel: dictionaryViewModel)
+              state.words.hasValue && state.wordDetails.hasValue
+                  ? _DetailOfWorldCard(
+                      dictionaryViewModel: dictionaryViewModel,
+                      words: state.words ?? [],
+                      wordDetails: state.wordDetails ?? [],
+                    )
                   : const Text(LocaleKeys.general_can_not_find_the_word).tr(),
           ],
         );
@@ -88,9 +93,15 @@ final class _DictionaryBody extends StatelessWidget {
 }
 
 final class _DetailOfWorldCard extends StatelessWidget {
-  const _DetailOfWorldCard({required this.dictionaryViewModel});
+  const _DetailOfWorldCard({
+    required this.dictionaryViewModel,
+    required this.words,
+    required this.wordDetails,
+  });
 
   final DictionaryViewModel dictionaryViewModel;
+  final List<Word?> words;
+  final List<WordDetail?> wordDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -103,33 +114,27 @@ final class _DetailOfWorldCard extends StatelessWidget {
           borderRadius: BorderRadiusManager.moreBorderRadius,
         ),
         elevation: 5,
-        child:
-            BlocSelector<DictionaryViewModel, DictionaryViewState, List<Word?>>(
-          selector: (state) {
-            return state.words ?? [];
-          },
-          builder: (context, state) {
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: _TitleOfTheWord(
-                    words: state,
-                  ).onlyPadding(top: 2.h, bottom: 2.h),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: _TitleOfTheWord(
+                dictionaryViewModel: dictionaryViewModel,
+                words: words,
+                audioOfTheWord: wordDetails.first?.phonetics?.first.audio ?? '',
+              ).onlyPadding(top: 2.h, bottom: 2.h),
+            ),
+            SliverList.builder(
+              itemCount: words.length,
+              itemBuilder: (context, index) => SizedBox(
+                child: ColoredBox(
+                  color: index.isEven
+                      ? Theme.of(context).colorScheme.background
+                      : Colors.transparent,
+                  child: _RowOfAmean(words: words, index: index),
                 ),
-                SliverList.builder(
-                  itemCount: state.length,
-                  itemBuilder: (context, index) => SizedBox(
-                    child: ColoredBox(
-                      color: index.isEven
-                          ? Theme.of(context).colorScheme.background
-                          : Colors.transparent,
-                      child: _RowOfAmean(words: state, index: index),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
+              ),
+            ),
+          ],
         ),
       ),
     );

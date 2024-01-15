@@ -1,9 +1,15 @@
 part of '../view/dictionary_view.dart';
 
 final class _TitleOfTheWord extends StatefulWidget {
-  const _TitleOfTheWord({required this.words});
+  const _TitleOfTheWord({
+    required this.words,
+    required this.audioOfTheWord,
+    required this.dictionaryViewModel,
+  });
 
   final List<Word?> words;
+  final String audioOfTheWord;
+  final DictionaryViewModel dictionaryViewModel;
 
   @override
   State<_TitleOfTheWord> createState() => _TitleOfTheWordState();
@@ -11,22 +17,27 @@ final class _TitleOfTheWord extends StatefulWidget {
 
 class _TitleOfTheWordState extends State<_TitleOfTheWord> {
   final player = AudioPlayer();
-  bool _isPlaying = true;
+  bool _isPlaying = false;
+
+  void initializeSourceUrlOfAudio(String url) {
+    player
+      ..setReleaseMode(ReleaseMode.release)
+      ..setSourceUrl(url);
+  }
 
   @override
   void initState() {
     super.initState();
 
-    player
-      ..setReleaseMode(ReleaseMode.release)
-      ..setSourceUrl(
-          'https://api.dictionaryapi.dev/media/pronunciations/en/pilot-au.mp3');
+    if (widget.audioOfTheWord.hasValue) {
+      initializeSourceUrlOfAudio(widget.audioOfTheWord);
 
-    player.onPlayerStateChanged.listen((event) {
-      setState(() {
-        _isPlaying = !(event == PlayerState.completed);
+      player.onPlayerStateChanged.listen((event) {
+        setState(() {
+          _isPlaying = (event == PlayerState.completed);
+        });
       });
-    });
+    }
   }
 
   @override
@@ -35,13 +46,13 @@ class _TitleOfTheWordState extends State<_TitleOfTheWord> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          onTap: () async {
-            _isPlaying ? await player.resume() : await player.pause();
-          },
+          onTap: widget.audioOfTheWord.hasValue ? _onPlayAudio : null,
           child: Icon(
             Icons.volume_up_outlined,
             size: 24.sp,
-            color: Theme.of(context).colorScheme.primary,
+            color: widget.audioOfTheWord.hasValue
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
           ),
         ),
         Text(
@@ -58,6 +69,10 @@ class _TitleOfTheWordState extends State<_TitleOfTheWord> {
         ),
       ],
     );
+  }
+
+  Future<void> _onPlayAudio() async {
+    _isPlaying ? await player.pause() : await player.resume();
   }
 }
 

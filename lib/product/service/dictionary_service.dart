@@ -2,8 +2,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:gen/gen.dart';
-import 'package:infdic/product/utility/constants/enums/domain_paths.dart';
-import 'package:logger/logger.dart';
 
 /// [DictionaryService] for general dictionary
 final class DictionaryService {

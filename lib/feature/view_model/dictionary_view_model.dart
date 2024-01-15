@@ -7,6 +7,7 @@ import 'package:infdic/product/service/firebase/firebase_network_manager.dart';
 import 'package:infdic/product/state/base/base_cubit.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 import 'package:infdic/product/utility/constants/enums/domain_paths.dart';
+import 'package:infdic/product/utility/extension/has_value_extension.dart';
 import 'package:infdic/product/utility/extension/make_safe_custom_extension.dart';
 
 /// [DictionaryViewModel] is the view model of home page
@@ -60,24 +61,48 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
     changeLoading();
     await DictionaryService.instance
         .dioGet<Word>(
-      domain: DomainPaths.dictionary.path,
+          domain: DomainPaths.dictionary.path,
+          value: word,
+          model: Word(),
+        )
+        .then((value) {
+          debugPrint('value: $value');
+
+          if (value is List<Word>) {
+            final safeWord = value.makeSafeCustom(
+              (value) =>
+                  value?.id != null &&
+                  value?.category != null &&
+                  value?.type != null &&
+                  value?.word_en != null &&
+                  value?.word_tr != null,
+            );
+            emit(state.copyWith(words: safeWord));
+          }
+        })
+        .whenComplete(() => _getAuidoOfSpesificAWord(word: word))
+        .whenComplete(changeLoading);
+  }
+
+  /// [_getAuidoOfSpesificAWord] is the detail of spesific a word of
+  /// dictionary page
+  Future<void> _getAuidoOfSpesificAWord({required String word}) async {
+    await DictionaryService.instance
+        .dioGet<WordDetail>(
+      domain: DomainPaths.detail.path,
       value: word,
-      model: Word(),
+      model: WordDetail(),
     )
         .then((value) {
       debugPrint('value: $value');
 
-      if (value is List<Word>) {
+      if (value is List<WordDetail>) {
         final safeWord = value.makeSafeCustom(
-          (value) =>
-              value?.id != null &&
-              value?.category != null &&
-              value?.type != null &&
-              value?.word_en != null &&
-              value?.word_tr != null,
+          (value) => value?.word.hasValue == true,
         );
-        emit(state.copyWith(words: safeWord));
+        debugPrint('safeWord: $safeWord');
+        emit(state.copyWith(wordDetails: safeWord));
       }
-    }).whenComplete(changeLoading);
+    });
   }
 }
