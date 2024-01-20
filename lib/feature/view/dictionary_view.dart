@@ -80,7 +80,6 @@ final class _DictionaryBody extends StatelessWidget {
             else
               state.words.hasValue && state.wordDetails.hasValue
                   ? _DetailOfWorldCard(
-                      dictionaryViewModel: dictionaryViewModel,
                       words: state.words ?? [],
                       wordDetails: state.wordDetails ?? [],
                     )
@@ -94,12 +93,10 @@ final class _DictionaryBody extends StatelessWidget {
 
 final class _DetailOfWorldCard extends StatelessWidget {
   const _DetailOfWorldCard({
-    required this.dictionaryViewModel,
     required this.words,
     required this.wordDetails,
   });
 
-  final DictionaryViewModel dictionaryViewModel;
   final List<Word?> words;
   final List<WordDetail?> wordDetails;
 
@@ -118,7 +115,6 @@ final class _DetailOfWorldCard extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: _TitleOfTheWord(
-                dictionaryViewModel: dictionaryViewModel,
                 words: words,
                 audioOfTheWord: wordDetails.first?.phonetics?.first.audio ?? '',
               ).onlyPadding(top: 2.h, bottom: 2.h),

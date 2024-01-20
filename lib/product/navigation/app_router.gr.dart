@@ -39,6 +39,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    OwnDictionaryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const OwnDictionaryView(),
+      );
+    },
     PhoneNumberVerificationRoute.name: (routeData) {
       final args = routeData.argsAs<PhoneNumberVerificationRouteArgs>(
           orElse: () => const PhoneNumberVerificationRouteArgs());
@@ -48,6 +54,12 @@ abstract class _$AppRouter extends RootStackRouter {
           email: args.email,
           key: args.key,
         ),
+      );
+    },
+    RootRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const RootView(),
       );
     },
     SignUpRoute.name: (routeData) {
@@ -135,6 +147,20 @@ class OTPRouteArgs {
 }
 
 /// generated route for
+/// [OwnDictionaryView]
+class OwnDictionaryRoute extends PageRouteInfo<void> {
+  const OwnDictionaryRoute({List<PageRouteInfo>? children})
+      : super(
+          OwnDictionaryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OwnDictionaryRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [PhoneNumberVerificationView]
 class PhoneNumberVerificationRoute
     extends PageRouteInfo<PhoneNumberVerificationRouteArgs> {
@@ -171,6 +197,20 @@ class PhoneNumberVerificationRouteArgs {
   String toString() {
     return 'PhoneNumberVerificationRouteArgs{email: $email, key: $key}';
   }
+}
+
+/// generated route for
+/// [RootView]
+class RootRoute extends PageRouteInfo<void> {
+  const RootRoute({List<PageRouteInfo>? children})
+      : super(
+          RootRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RootRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

@@ -4,12 +4,10 @@ final class _TitleOfTheWord extends StatefulWidget {
   const _TitleOfTheWord({
     required this.words,
     required this.audioOfTheWord,
-    required this.dictionaryViewModel,
   });
 
   final List<Word?> words;
   final String audioOfTheWord;
-  final DictionaryViewModel dictionaryViewModel;
 
   @override
   State<_TitleOfTheWord> createState() => _TitleOfTheWordState();

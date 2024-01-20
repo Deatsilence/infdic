@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:infdic/product/navigation/app_router.dart';
 
 final class BaseView<T> extends StatefulWidget {
-  final Widget Function(BuildContext context, T value) onPageBuilder;
-  final T? viewModel;
-  final Function(T model)? onModelReady;
-  final VoidCallback? onDispose;
-
   const BaseView({
     required this.onPageBuilder,
     this.onDispose,
     this.viewModel,
     this.onModelReady,
     super.key,
+    this.bottomNavigationBar,
   });
+
+  final Widget Function(BuildContext context, T value) onPageBuilder;
+  final T? viewModel;
+  final Function(T model)? onModelReady;
+  final VoidCallback? onDispose;
+  final Widget? bottomNavigationBar;
 
   @override
   State<BaseView> createState() => _BaseViewState();
@@ -61,6 +63,7 @@ class _BaseViewState extends State<BaseView> {
           ),
         ),
       ),
+      bottomNavigationBar: widget.bottomNavigationBar,
     );
   }
 }
