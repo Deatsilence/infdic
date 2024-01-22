@@ -60,10 +60,15 @@ class _TitleOfTheWordState extends State<_TitleOfTheWord> {
               .titleLarge
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
-        Icon(
-          Icons.add_outlined,
-          size: 24.sp,
-          color: Theme.of(context).colorScheme.primary,
+        InkWell(
+          onTap: () async {
+            await OwnDictionaryViewModel().addAWord(word: widget.words.first);
+          },
+          child: Icon(
+            Icons.add_outlined,
+            size: 24.sp,
+            color: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gen/gen.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,6 +16,7 @@ final class InfDicUser with EquatableMixin {
     required this.email,
     required this.phoneNumber,
     this.createdAt,
+    this.ownWords = const [],
   });
 
   /// [InfDicUser.fromJson] is the json of [InfDicUser]
@@ -30,6 +32,9 @@ final class InfDicUser with EquatableMixin {
   /// [uId] is the uId of home page
   final String? uId;
 
+  /// [word_list] is the word list of home page
+  final List<String> ownWords;
+
   /// [createdAt] is the created of home page
   final DateTime? createdAt;
 
@@ -37,20 +42,22 @@ final class InfDicUser with EquatableMixin {
   Map<String, dynamic> toJson() => _$InfDicUserToJson(this);
 
   @override
-  List<Object?> get props => [email, phoneNumber, uId, createdAt];
+  List<Object?> get props => [email, phoneNumber, uId, createdAt, ownWords];
 
   /// [copyWith] is the copy of [InfDicUser]
   InfDicUser copyWith({
     String? email,
     String? phoneNumber,
     String? uId,
-    DateTime? created,
+    DateTime? createdAt,
+    List<String> ownWords = const [],
   }) {
     return InfDicUser(
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       uId: uId ?? this.uId,
-      createdAt: created ?? createdAt,
+      createdAt: createdAt ?? this.createdAt,
+      ownWords: ownWords,
     );
   }
 }

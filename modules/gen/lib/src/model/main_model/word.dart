@@ -22,10 +22,10 @@ final class Word extends BaseModel<Word> with EquatableMixin {
   /// [id] is the id of searched word
   final int? id;
 
-  /// [wordEn] is the english word of searched word
+  /// [word_en] is the english word of searched word
   final String? word_en;
 
-  /// [wordTr] is the turkish word of searched word
+  /// [word_tr] is the turkish word of searched word
   final String? word_tr;
 
   /// [type] is the type of searched word

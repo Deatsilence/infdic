@@ -9,6 +9,7 @@ import 'package:gen/gen.dart';
 import 'package:infdic/feature/mixin/dictionary_view_mixin.dart';
 import 'package:infdic/feature/view/auth/base_view.dart';
 import 'package:infdic/feature/view_model/dictionary_view_model.dart';
+import 'package:infdic/feature/view_model/own_dictionary_view_model.dart';
 import 'package:infdic/product/init/language/locale_keys.g.dart';
 import 'package:infdic/product/state/dictionary_view_state.dart';
 import 'package:infdic/product/utility/extension/has_value_extension.dart';

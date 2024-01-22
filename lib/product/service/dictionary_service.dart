@@ -37,7 +37,6 @@ final class DictionaryService {
         case HttpStatus.ok:
           final responseBody = response.data;
           if (responseBody is List) {
-            debugPrint('responseBody: $responseBody');
             return responseBody
                 .map(
                   (e) => model.fromJson(

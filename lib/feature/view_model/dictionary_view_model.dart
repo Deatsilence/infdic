@@ -97,11 +97,11 @@ final class DictionaryViewModel extends BaseCubit<DictionaryViewState> {
       debugPrint('value: $value');
 
       if (value is List<WordDetail>) {
-        final safeWord = value.makeSafeCustom(
+        final wordDetails = value.makeSafeCustom(
           (value) => value?.word.hasValue == true,
         );
-        debugPrint('safeWord: $safeWord');
-        emit(state.copyWith(wordDetails: safeWord));
+        debugPrint('wordDetails: $wordDetails');
+        emit(state.copyWith(wordDetails: wordDetails));
       }
     });
   }

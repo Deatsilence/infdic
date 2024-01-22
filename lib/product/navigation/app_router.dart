@@ -23,11 +23,9 @@ final class AppRouter extends _$AppRouter {
             AutoRoute(
               page: RootRoute.page,
               // initial: true,
-              children: [
-                AutoRoute(page: DictionaryRoute.page),
-                AutoRoute(page: OwnDictionaryRoute.page),
-              ],
             ),
+            AutoRoute(page: DictionaryRoute.page),
+            AutoRoute(page: OwnDictionaryRoute.page),
           ],
         ),
         AutoRoute(page: OTPRoute.page),
