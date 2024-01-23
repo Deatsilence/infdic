@@ -30,7 +30,16 @@ final class OwnDictionaryViewModel extends BaseCubit<OwnDictionaryViewState> {
         .whenComplete(changeLoading);
   }
 
-  /// [getUser] is the user of dictionary page
+  /// [deleteWord] is the words of home page
+  Future<void> deleteWord({required Word? word}) async {
+    changeLoading();
+    final user = FirebaseNetworkManager.instance.getCurrentUser();
+    if (user == null && word == null) return;
+    await FirebaseNetworkManager.instance
+        .deleteAWordfFromFirestore(id: user!.uid, word: word!.word_en ?? '')
+        .whenComplete(changeLoading);
+  }
+
   Future<void> getUser() async {
     changeLoading();
     final user = FirebaseNetworkManager.instance.getCurrentUser();
@@ -39,33 +48,25 @@ final class OwnDictionaryViewModel extends BaseCubit<OwnDictionaryViewState> {
       await FirebaseNetworkManager.instance
           .getDataFromFirestore(id: user.uid)
           .then((value) {
-            infDicUser = InfDicUser.fromJson(value.data() ?? {});
-          })
-          .whenComplete(() => emit(state.copyWith(infDicUser: infDicUser)))
-          .whenComplete(() {
-            for (final element in infDicUser.ownWords) {
-              searchAWord(element);
-            }
-          })
-          .whenComplete(changeLoading);
+        infDicUser = InfDicUser.fromJson(value.data() ?? {});
+      }).whenComplete(() => emit(state.copyWith(infDicUser: infDicUser)));
+
+      final ownWordsFutures = infDicUser.ownWords.map(searchAWord);
+      final ownWordsResults = await Future.wait(ownWordsFutures);
+
+      final ownWords = ownWordsResults.whereType<List<Word?>>().toList();
+      debugPrint('ownWords: $ownWords');
+
+      emit(state.copyWith(words: ownWords));
+      changeLoading();
     }
   }
 
-  // /// [getOwnWordsUser] is the user of dictionary page
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> getOwnWordsUser() {
-  //   final user = FirebaseNetworkManager.instance.getCurrentUser();
-  //   late final Stream<DocumentSnapshot<Map<String, dynamic>>> documentSnapshot;
-  //   if (user != null) {
-  //     documentSnapshot = FirebaseNetworkManager.instance
-  //         .getOwnWordListFromFirestore(id: user.uid);
-  //   }
-  //   return documentSnapshot;
-  // }
-
   /// [searchAWord] is the search a word of dictionary page
-  Future<void> searchAWord(
+  Future<List<Word?>?> searchAWord(
     String word,
   ) async {
+    var safeWord = <Word>[];
     await DictionaryService.instance
         .dioGet<Word>(
       domain: DomainPaths.dictionary.path,
@@ -73,14 +74,10 @@ final class OwnDictionaryViewModel extends BaseCubit<OwnDictionaryViewState> {
       model: Word(),
     )
         .then((value) {
+      debugPrint('value: $value');
+
       if (value is List<Word>) {
-        debugPrint('value: $value');
-
-        // Assuming 'state.words' is a List<List<Word?>?>
-        final currentWords = state.words ?? [];
-
-        // Yeni alınan kelimeleri güvenli bir şekilde ekle
-        final safeWord = value.makeSafeCustom(
+        safeWord = value.makeSafeCustom(
           (value) =>
               value?.id != null &&
               value?.category != null &&
@@ -88,14 +85,10 @@ final class OwnDictionaryViewModel extends BaseCubit<OwnDictionaryViewState> {
               value?.word_en != null &&
               value?.word_tr != null,
         );
-
-        // Mevcut listeye yeni kelimeleri ekle
-        currentWords.add(safeWord);
-        debugPrint('currentWords: $currentWords');
-        // Yeni state'i emit et
-        emit(state.copyWith(words: currentWords));
+        debugPrint('safeWord: $safeWord');
       }
     }).whenComplete(() => _getAuidoOfSpesificAWord(word: word));
+    return safeWord;
   }
 
   /// [_getAuidoOfSpesificAWord] is the detail of spesific a word of

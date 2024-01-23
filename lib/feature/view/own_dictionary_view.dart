@@ -87,7 +87,7 @@ final class _OwnDictionaryBody extends StatelessWidget {
                             index: index,
                             ownDictionaryViewModel: ownDictionaryViewModel,
                             infDicUser: state.infDicUser!,
-                          );
+                          ).onlyPadding(bottom: 2.h);
                         },
                       )
                     : const SizedBox.shrink();
@@ -145,6 +145,7 @@ class _OwnDetailOfWordCardState extends State<_OwnDetailOfWordCard> {
           slivers: [
             SliverToBoxAdapter(
               child: _TitleOfTheWord(
+                ownDictionaryViewModel: widget.ownDictionaryViewModel,
                 words: widget.words,
                 audioOfTheWord: widget.wordDetails.hasValue
                     ? widget.wordDetails.first?.phonetics?.first.audio ?? ''
@@ -173,8 +174,10 @@ final class _TitleOfTheWord extends StatefulWidget {
   const _TitleOfTheWord({
     required this.words,
     required this.audioOfTheWord,
+    required this.ownDictionaryViewModel,
   });
 
+  final OwnDictionaryViewModel ownDictionaryViewModel;
   final List<Word?> words;
   final String audioOfTheWord;
 
@@ -231,12 +234,16 @@ class _TitleOfTheWordState extends State<_TitleOfTheWord> {
         ),
         InkWell(
           onTap: () async {
-            await OwnDictionaryViewModel().addAWord(word: widget.words.first);
+            await OwnDictionaryViewModel()
+                .deleteWord(word: widget.words.first)
+                .whenComplete(
+                  () => widget.ownDictionaryViewModel.getUser(),
+                );
           },
           child: Icon(
-            Icons.add_outlined,
+            Icons.delete_outlined,
             size: 24.sp,
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.error,
           ),
         ),
       ],

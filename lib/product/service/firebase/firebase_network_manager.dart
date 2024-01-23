@@ -81,10 +81,6 @@ final class FirebaseNetworkManager {
       _firebaseFirestore.collection('user').doc(id).get();
 
   // /// [getOwnWordListFromFirestore] is the get data from firestore
-  // Stream<DocumentSnapshot<Map<String, dynamic>>> getOwnWordListFromFirestore({
-  //   required String id,
-  // }) =>
-  //     _firebaseFirestore.collection('user').doc(id).snapshots();
 
   /// [addAWordToFirestore] is the add a word to firestore
   Future<void> addAWordToFirestore({
@@ -93,6 +89,16 @@ final class FirebaseNetworkManager {
   }) async {
     await _firebaseFirestore.collection('user').doc(id).update({
       'ownWords': FieldValue.arrayUnion([word]),
+    });
+  }
+
+  /// [addAWordToFirestore] is the add a word to firestore
+  Future<void> deleteAWordfFromFirestore({
+    required String id,
+    required String word,
+  }) async {
+    await _firebaseFirestore.collection('user').doc(id).update({
+      'ownWords': FieldValue.arrayRemove([word]),
     });
   }
 }
